@@ -16,7 +16,7 @@ const page = () => {
     console.log(`username :${username} , password :${password}`);
   };
   return (
-    <div className="flex p-2 flex-col w-100 h-[100vh] bg-slate-100 items-center justify-center gap-10">
+    <div className="flex p-2 flex-col w-100 h-[100vh] bg-slate-200 items-center justify-center gap-10">
       <Image alt="qrcode image for login" src={QRcodeLogin} width="175" />
       <p className="text-indigo-950 font-bold text-3xl">
         ورود به سامانه حضور غیاب
