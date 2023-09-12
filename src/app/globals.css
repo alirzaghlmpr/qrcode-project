@@ -30,3 +30,15 @@
   font-family: "vazir";
   font-weight: 400;
 }
+
+.Mui-selected {
+  color: white;
+  font-family: "vazir" !important;
+  font-size: 0.75rem !important;
+  line-height: 1rem;
+}
+.MuiBottomNavigationAction-label {
+  font-family: "vazir" !important;
+  font-size: 0.75rem !important;
+  line-height: 1rem;
+}
