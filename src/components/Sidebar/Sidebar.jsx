@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Avatar from "@/assets/userAvatar.webp";
 import Image from "next/image";
@@ -14,7 +13,9 @@ const Sidebar = () => {
 
       <div className="flex flex-col items-center mx-2">
         <h4 className="mx-2 mt-2 font-medium text-slate-200">علیرضا غلامپور</h4>
-        <p className="mx-2 mt-1 text-sm font-medium text-slate-300 d">3981231076</p>
+        <p className="mx-2 mt-1 text-sm font-medium text-slate-300 d">
+          3981231076
+        </p>
         <p className="mx-2 mt-1 text-sm font-medium text-slate-400 d">کارمند</p>
       </div>
 

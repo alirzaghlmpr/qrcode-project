@@ -2,12 +2,11 @@ import React from "react";
 import Sidebar from "@/components/Sidebar";
 import QRcodeGenerator from "@/components/QRcodeGenerator";
 import TableHistory from "@/components/TableHistory";
-const DesktopDashboard = () => {
+const DesktopDashboard = ({ children }) => {
   return (
     <div className="flex">
       <Sidebar />
-      {/* <QRcodeGenerator /> */}
-      <TableHistory />
+      {children}
     </div>
   );
 };

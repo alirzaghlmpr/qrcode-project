@@ -1,58 +1,29 @@
-"use client";
-import React, { useState, useEffect, useRef } from "react";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import QrCodeIcon from "@mui/icons-material/QrCode";
-import RestoreIcon from "@mui/icons-material/Restore";
-import PollIcon from "@mui/icons-material/Poll";
-import Paper from "@mui/material/Paper";
+import React from "react";
+import { UserNavbarItems } from "@/utils";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const MobileNavigation = () => {
-  const [value, setValue] = useState(1);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    ref.current.ownerDocument.body.scrollTop = 0;
-  }, [value]);
+  const path = usePathname();
 
   return (
-    <Paper
-      ref={ref}
-      sx={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-      }}
-      elevation={3}>
-      <BottomNavigation
-        sx={{ backgroundColor: "#1e1b4b" }}
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}>
-        <BottomNavigationAction
-          sx={{ color: "#a78bfa" }}
-          label="تاریخچه"
-          icon={
-            <RestoreIcon sx={{ color: value === 0 ? "white" : "#a78bfa" }} />
-          }
-        />
-        <BottomNavigationAction
-          sx={{ color: "#a78bfa" }}
-          label="ایجاد کیوار"
-          icon={
-            <QrCodeIcon sx={{ color: value === 1 ? "white" : "#a78bfa" }} />
-          }
-        />
-        <BottomNavigationAction
-          sx={{ color: "#a78bfa" }}
-          label="گزارشات"
-          icon={<PollIcon sx={{ color: value === 2 ? "white" : "#a78bfa" }} />}
-        />
-      </BottomNavigation>
-    </Paper>
+    <div class="fixed bottom-0 left-0 z-50 w-full bg-indigo-950">
+      <div class="flex justify-evenly items-center">
+        {UserNavbarItems.map((item) => {
+          return (
+            <Link
+              href={item.to}
+              key={item.id}
+              className={`px-4 py-2 flex flex-col items-center justify-center text-slate-50 ${
+                path === item.to ? "bg-indigo-700" : ""
+              }`}>
+              <p>{item.icon}</p>
+              <p className="text-xs">{item.link}</p>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

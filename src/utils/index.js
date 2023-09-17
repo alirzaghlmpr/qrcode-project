@@ -49,3 +49,9 @@ export const lastNyears = (currentYear, n) => {
   for (let i = currentYear; i >= endYear; i--) years.push(i);
   return years;
 };
+
+export const MobileRoutes = Object.freeze({
+  Dashboard: 1,
+  History: 0,
+  Reports: 2,
+});

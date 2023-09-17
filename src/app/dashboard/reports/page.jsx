@@ -3,20 +3,20 @@
 import React from "react";
 import DesktopDasboard from "@/components/Dashboard/DesktopDasboard";
 import MobileDashboard from "@/components/Dashboard/MobileDashboard";
-import QRcodeGenerator from "@/components/QRcodeGenerator";
+import Reports from "@/components/Reports";
 import { useWindowSize } from "@uidotdev/usehooks";
 
-const Dashboard = () => {
+const Report = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
     <MobileDashboard>
-      <QRcodeGenerator />
+      <Reports />
     </MobileDashboard>
   ) : (
     <DesktopDasboard>
-      <QRcodeGenerator />
+      <Reports />
     </DesktopDasboard>
   );
 };
 
-export default Dashboard;
+export default Report;
