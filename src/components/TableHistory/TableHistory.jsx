@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Monthes, lastNyears } from "@/utils";
 const TableHistory = () => {
@@ -15,7 +13,7 @@ const TableHistory = () => {
             <div>
               <select
                 id="monthes"
-                class="bg-indigo-950 text-sm px-3 py-2 rounded-lg text-slate-50">
+                class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
                 <option selected>انتخاب ماه</option>
                 {Monthes.map(({ name, id, value }) => (
                   <option key={id} value={value}>
@@ -28,7 +26,7 @@ const TableHistory = () => {
             <div>
               <select
                 id="years"
-                class="bg-indigo-950 text-sm px-3 py-2 rounded-lg text-slate-50">
+                class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
                 <option selected>انتخاب سال</option>
                 {lastNyears(1402, 10).map((item) => (
                   <option key={item} value={item}>
@@ -41,7 +39,7 @@ const TableHistory = () => {
             <div>
               <button
                 type="submit"
-                className="bg-indigo-950 text-sm px-3 py-2 rounded-lg text-slate-50">
+                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
                 اعمال فیلتر
               </button>
             </div>
@@ -49,7 +47,7 @@ const TableHistory = () => {
         </div>
         <div
           className="flex gap-5 flex-col w-[100%] relative p-5 costume-scroll"
-          style={{ direction: "ltr" }}>
+          style={{ direction: "rtl" }}>
           <table
             style={{ direction: "rtl" }}
             class="w-full text-center text-sm font-light border-2 border-indigo-950 rounded-lg">
