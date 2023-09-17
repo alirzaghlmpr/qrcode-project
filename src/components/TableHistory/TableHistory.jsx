@@ -1,11 +1,16 @@
 import React from "react";
 import { purple } from "@mui/material/colors";
+
 const TableHistory = () => {
   return (
     <div className="w-[100%] p-5 mt-3">
       <div className="bg-indigo-50 h-[70vh] rounded-lg flex p-5 flex-col items-center justify-center">
-        <div className="w-[90%] md:w-[80%] relative overflow-x-auto shadow-md rounded-lg">
-          <table class="w-full text-center text-sm font-light">
+        <div
+          className="w-[100%] md:w-[90%] relative p-5 costume-scroll"
+          style={{ direction: "ltr" }}>
+          <table
+            style={{ direction: "rtl" }}
+            class="w-full text-center text-sm font-light border-2 border-indigo-950 rounded-lg">
             <thead class=" font-medium" style={{ background: "#1e1b4b" }}>
               <tr className="text-slate-50">
                 <th scope="col" class="font-bold text-sm px-6 py-4">
@@ -53,7 +58,7 @@ const TableHistory = () => {
                 <td class="whitespace-nowrap px-6 py-4">09:01</td>
                 <td class="whitespace-nowrap px-6 py-4">15:15</td>
               </tr>
-              <tr class="border-b transition duration-300 ease-in-out">
+              <tr class="border-b transition duration-300 ease-in-out bg-indigo-200">
                 <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
                 <td class="whitespace-nowrap px-6 py-4">1402/01/12</td>
                 <td class="whitespace-nowrap px-6 py-4">09:01</td>
@@ -65,7 +70,7 @@ const TableHistory = () => {
                 <td class="whitespace-nowrap px-6 py-4">09:01</td>
                 <td class="whitespace-nowrap px-6 py-4">15:15</td>
               </tr>{" "}
-              <tr class="border-b transition duration-300 ease-in-out">
+              <tr class="border-b transition duration-300 ease-in-out bg-indigo-200">
                 <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
                 <td class="whitespace-nowrap px-6 py-4">1402/01/12</td>
                 <td class="whitespace-nowrap px-6 py-4">09:01</td>
@@ -77,7 +82,7 @@ const TableHistory = () => {
                 <td class="whitespace-nowrap px-6 py-4">09:01</td>
                 <td class="whitespace-nowrap px-6 py-4">15:15</td>
               </tr>{" "}
-              <tr class="border-b transition duration-300 ease-in-out">
+              <tr class="border-b transition duration-300 ease-in-out bg-indigo-200">
                 <td class="whitespace-nowrap px-6 py-4 font-medium">3</td>
                 <td class="whitespace-nowrap px-6 py-4">1402/01/12</td>
                 <td class="whitespace-nowrap px-6 py-4">09:01</td>
