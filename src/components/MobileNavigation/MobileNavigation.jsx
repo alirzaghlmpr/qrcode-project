@@ -6,9 +6,6 @@ import QrCodeIcon from "@mui/icons-material/QrCode";
 import RestoreIcon from "@mui/icons-material/Restore";
 import PollIcon from "@mui/icons-material/Poll";
 import Paper from "@mui/material/Paper";
-import Avatar from "@/assets/userAvatar.webp";
-import Image from "next/image";
-import QRcodeSample from "@/assets/qrcode-sample.webp";
 
 const MobileNavigation = () => {
   const [value, setValue] = useState(1);
