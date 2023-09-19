@@ -8,14 +8,14 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
 const Scanner = () => {
-  const [state, setState] = useState([]);
+  const [scannedInfo, setScannedInfo] = useState([]);
   let modalDelayTimeMiliSec = 2000;
   let scannerContainerId = "scanner";
   useEffect(() => {
     const scanner = new Html5QrcodeScanner(scannerContainerId, {
       qrbox: {
-        width: 400,
-        height: 400,
+        width: 300,
+        height: 300,
       },
       fps: 5,
       disableFlip: true,
@@ -47,11 +47,11 @@ const Scanner = () => {
         sec: date.second,
       };
 
-      setState((prev) => [...prev, info]);
+      setScannedInfo((prev) => [...prev, info]);
 
       setTimeout(() => {
         scanner.resume();
-      }, modalDelayTimeMiliSec + 1000);
+      }, modalDelayTimeMiliSec);
       scanner.pause();
     };
     const error = (error) => {
@@ -62,19 +62,33 @@ const Scanner = () => {
   }, []);
 
   return (
-    <div className="flex items-start p-3">
-      <div className="w-[50%] flex flex-col items-start px-4">
-        <p>لیست افراد اسکن شده</p>
-        <ol class="list-decimal">
-          {state.map((item) => (
-            <li key={item.pID}>
-              {item.name},{item.role},{item.pID},{item.date},{item.hour}:
-              {item.minute}:{item.sec}
+    <div className="flex justify-evenly items-start p-5">
+      <div className="w-[48%] h-[600px] overflow-y-scroll flex flex-col items-start px-10 costume-scroll">
+        <p>لیست افراد اسکن شده({scannedInfo.length} نفر):</p>
+        <ol className="list-decimal">
+          {scannedInfo.map((item) => (
+            <li className="my-3" key={item.pID}>
+              <span> نام : </span>
+              <span>{item.name}</span>
+              <span> ، </span>
+              <span> سمت : </span>
+              <span>{item.role}</span>
+              <span> ، </span>
+              <span>کد پرسنلی:</span>
+              <span>{item.pID}</span>
+              <span> ، </span>
+              <span>تاریخ:</span>
+              <span>{item.date}</span>
+              <span> ، </span>
+              <span>زمان:</span>
+              <span>
+                {item.hour}:{item.minute}:{item.sec}
+              </span>
             </li>
           ))}
         </ol>
       </div>
-      <div className="w-[50%] flex flex-col items-center justify-center gap-4">
+      <div className="w-[48%] flex flex-col items-center justify-center gap-4">
         <h4>جهت اسکن کیوار کد ، کیوار خود را داخل کادر داخل قرار دهید</h4>
         <div className="w-[100%]" id={scannerContainerId}></div>
       </div>
