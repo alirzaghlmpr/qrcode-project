@@ -22,9 +22,6 @@ const Scanner = () => {
     });
 
     const success = (decodedText, decodedResult) => {
-      //   console.log(
-      //     `decoded text :${decodedText} , decoded result : ${decodedResult}`
-      //   );
       const data = JSON.parse(decodedText);
 
       const date = new DateObject({ calendar: persian, locale: persian_fa });
