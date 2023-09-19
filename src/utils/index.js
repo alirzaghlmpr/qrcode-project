@@ -1,6 +1,8 @@
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import RestoreIcon from "@mui/icons-material/Restore";
 import PollIcon from "@mui/icons-material/Poll";
+import HailIcon from "@mui/icons-material/Hail";
+
 import { grey } from "@mui/material/colors";
 export const LoginFormFields = Object.freeze({
   Username: "username",
@@ -25,6 +27,12 @@ export const UserNavbarItems = [
     link: "گزارشات",
     to: "/dashboard/reports",
     icon: <PollIcon sx={{ color: grey[50] }} />,
+  },
+  {
+    id: 4,
+    link: "مرخصی",
+    to: "/dashboard/leavage",
+    icon: <HailIcon sx={{ color: grey[50] }} />,
   },
 ];
 
