@@ -1,14 +1,15 @@
 import React from "react";
 import { Monthes } from "@/constants";
-import { lastNyears, daysOfMonth } from "@/utils";
+import { lastNyears } from "@/utils";
+
 const ReportsAdmin = () => {
   return (
     <div className="w-[100%] p-5 mt-3">
       <div className="bg-indigo-50 h-[70vh] rounded-lg gap-5 flex p-6 flex-col justify-center">
         <form
           action=""
-          className="flex flex-wrap justify-center md:justify-start gap-4 items-center">
-          <div>
+          className="flex flex-wrap justify-center md:justify-start gap-4">
+          <div className="w-[35%] md:w-auto">
             <select
               id="monthes"
               class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
@@ -21,7 +22,7 @@ const ReportsAdmin = () => {
             </select>
           </div>
 
-          <div>
+          <div className="w-[35%] md:w-auto">
             <select
               id="years"
               class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
@@ -33,14 +34,15 @@ const ReportsAdmin = () => {
               ))}
             </select>
           </div>
-          <div>
+
+          <div className="w-[45%] md:w-auto">
             <input
               type="text"
               placeholder="جست و جو..."
               className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
             />
           </div>
-          <div>
+          <div className="w-[45%] md:w-auto">
             <select
               id="years"
               class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">

@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+
 const LeavageFormAdmin = () => {
   return (
     <div className="w-[100%] p-5 mt-3">
@@ -47,12 +50,18 @@ const LeavageFormAdmin = () => {
                 <span> ، </span>
                 <span>وضعیت : </span>
                 <span className="text-amber-500 font-bold">در حال بررسی</span>
-                <p className="flex gap-4">
-                  <button className="text-sm text-slate-50 bg-green-700 rounded-lg px-3 py-1">
-                    تایید
+                <p className="flex gap-4 mt-2">
+                  <button className="flex items-center gap-2 text-sm text-slate-50 bg-green-700 rounded-lg px-3 py-1">
+                    <span>
+                      <CheckIcon />
+                    </span>
+                    <span>تایید</span>
                   </button>
-                  <button className="text-sm text-slate-50 bg-red-700 rounded-lg px-3 py-1">
-                    رد
+                  <button className="flex items-center gap-2 text-sm text-slate-50 bg-red-700 rounded-lg px-3 py-1">
+                    <span>
+                      <CloseIcon />
+                    </span>
+                    <span>رد</span>
                   </button>
                 </p>
               </li>
