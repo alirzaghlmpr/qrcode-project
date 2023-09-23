@@ -1,9 +1,9 @@
 import React from "react";
 import Sidebar from "@/components/Sidebar";
-const DesktopDashboard = ({ children }) => {
+const DesktopDashboard = ({ children, navItems }) => {
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar navItems={navItems} />
       {children}
     </div>
   );

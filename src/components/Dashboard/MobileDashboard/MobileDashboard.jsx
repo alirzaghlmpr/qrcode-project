@@ -1,12 +1,12 @@
 import React from "react";
 import MobileHeader from "@/components/MobileHeader";
 import MobileNavigation from "@/components/MobileNavigation";
-const MobileDashboard = ({ children }) => {
+const MobileDashboard = ({ children, navItems }) => {
   return (
     <div className="flex flex-col">
       <MobileHeader />
       {children}
-      <MobileNavigation />
+      <MobileNavigation navItems={navItems} />
     </div>
   );
 };

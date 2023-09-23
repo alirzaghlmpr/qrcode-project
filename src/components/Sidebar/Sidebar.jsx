@@ -3,9 +3,8 @@ import Avatar from "@/assets/userAvatar.webp";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserNavbarItems } from "@/utils";
 
-const Sidebar = () => {
+const Sidebar = ({ navItems }) => {
   let path = usePathname();
   return (
     <div className="flex flex-col bg-indigo-950 w-64 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l">
@@ -21,7 +20,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col justify-between flex-1 mt-6">
         <nav>
-          {UserNavbarItems.map((item) => {
+          {navItems.map((item) => {
             return (
               <Link
                 className={`flex items-center px-4 py-3 text-gray-700 my-4 ${

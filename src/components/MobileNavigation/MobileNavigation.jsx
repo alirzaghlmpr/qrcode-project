@@ -1,15 +1,14 @@
 import React from "react";
-import { UserNavbarItems } from "@/utils";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const MobileNavigation = () => {
+const MobileNavigation = ({ navItems }) => {
   const path = usePathname();
 
   return (
     <div class="fixed bottom-0 left-0 z-50 w-full bg-indigo-950">
       <div class="flex justify-evenly items-center">
-        {UserNavbarItems.map((item) => {
+        {navItems.map((item) => {
           return (
             <Link
               href={item.to}

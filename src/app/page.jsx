@@ -3,7 +3,7 @@
 import React from "react";
 import QRcodeLogin from "@/assets/qrcode-login.png";
 import Image from "next/image";
-import { LoginFormFields } from "@/utils";
+import { LoginFormFields } from "@/constants";
 import TextField from "@/components/TextField";
 
 const page = () => {

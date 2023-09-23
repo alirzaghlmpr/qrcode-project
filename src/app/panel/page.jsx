@@ -3,20 +3,20 @@
 import React from "react";
 import DesktopDasboard from "@/components/Dashboard/DesktopDasboard";
 import MobileDashboard from "@/components/Dashboard/MobileDashboard";
-import Reports from "@/components/Reports";
+import TableHistoryAdmin from "@/components/TableHistoryAdmin";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { UserNavbarItems } from "@/constants";
-const Report = () => {
+import { AdminNavbarItems } from "@/constants";
+const Panel = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
-    <MobileDashboard navItems={UserNavbarItems}>
-      <Reports />
+    <MobileDashboard navItems={AdminNavbarItems}>
+      <TableHistoryAdmin />
     </MobileDashboard>
   ) : (
-    <DesktopDasboard navItems={UserNavbarItems}>
-      <Reports />
+    <DesktopDasboard navItems={AdminNavbarItems}>
+      <TableHistoryAdmin />
     </DesktopDasboard>
   );
 };
 
-export default Report;
+export default Panel;

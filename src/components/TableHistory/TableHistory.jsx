@@ -1,5 +1,6 @@
 import React from "react";
-import { Monthes, lastNyears } from "@/utils";
+import { Monthes } from "@/constants";
+import { lastNyears, daysOfMonth } from "@/utils";
 const TableHistory = () => {
   return (
     <div className="w-[100%] p-5 mt-3">
@@ -9,7 +10,9 @@ const TableHistory = () => {
             direction: "rtl",
             display: "flex",
           }}>
-          <form action="" className="flex justify-start gap-5 items-center">
+          <form
+            action=""
+            className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
             <div>
               <select
                 id="monthes"
@@ -18,6 +21,18 @@ const TableHistory = () => {
                 {Monthes.map(({ name, id, value }) => (
                   <option key={id} value={value}>
                     {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                id="monthes"
+                class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
+                <option selected>انتخاب روز</option>
+                {daysOfMonth().map((item) => (
+                  <option key={item} value={item}>
+                    {item}
                   </option>
                 ))}
               </select>
@@ -36,10 +51,10 @@ const TableHistory = () => {
               </select>
             </div>
 
-            <div>
+            <div className="w-[100%] md:w-auto">
               <button
                 type="submit"
-                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
+                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50 w-[100%]">
                 اعمال فیلتر
               </button>
             </div>
@@ -60,10 +75,10 @@ const TableHistory = () => {
                   تاریخ
                 </th>
                 <th scope="col" class="font-bold text-sm px-6 py-4">
-                  ساعت ورود
+                  اولین ورود
                 </th>
                 <th scope="col" class="font-bold text-sm px-6 py-4">
-                  ساعت خروج
+                  آخرین خروج
                 </th>
                 <th scope="col" class="font-bold text-sm px-6 py-4">
                   مدت حضور
