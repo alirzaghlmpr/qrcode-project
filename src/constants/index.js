@@ -59,7 +59,7 @@ export const AdminNavbarItems = [
   {
     id: 4,
     link: "مرخصی ها",
-    to: "/dashboard/leavage",
+    to: "/panel/leavage",
     icon: <HailIcon sx={{ color: grey[50] }} />,
   },
 ];
