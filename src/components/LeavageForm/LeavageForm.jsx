@@ -14,7 +14,7 @@ const LeavageForm = () => {
     <div className="w-[100%] p-5 mt-3">
       <div className="bg-indigo-50 h-[70vh] rounded-lg gap-5 flex p-6 flex-col items-center justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
-          <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[250px] md:h-[400px] overflow-y-scroll costume-scroll ">
+          <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[265px] md:h-[400px] overflow-y-scroll costume-scroll ">
             <p>فرم درخواست مرخصی</p>
             <hr />
             <form action="">
@@ -74,7 +74,7 @@ const LeavageForm = () => {
               </button>
             </form>
           </div>
-          <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[150px] md:h-[400px] overflow-y-scroll costume-scroll">
+          <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[165px] md:h-[400px] overflow-y-scroll costume-scroll">
             <p>درخواست های مرخصی شما</p>
             <hr />
             <ol className="list-decimal px-8">
