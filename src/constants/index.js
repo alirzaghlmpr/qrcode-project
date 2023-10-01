@@ -79,8 +79,10 @@ export const Monthes = [
   { name: "اسفند", value: "اسفند", id: "اسفند" },
 ];
 
-export const MobileRoutes = Object.freeze({
-  Dashboard: 1,
-  History: 0,
-  Reports: 2,
+export const SearchParams = Object.freeze({
+  Month: "month",
+  Day: "day",
+  Year: "year",
+  Type: "type",
+  Query: "query",
 });

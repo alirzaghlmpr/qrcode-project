@@ -12,8 +12,8 @@ const ReportsAdmin = () => {
           <div className="w-[35%] md:w-auto">
             <select
               id="monthes"
-              class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option selected>انتخاب ماه</option>
+              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
+              <option defaultValue={null}>انتخاب ماه</option>
               {Monthes.map(({ name, id, value }) => (
                 <option key={id} value={value}>
                   {name}
@@ -25,8 +25,8 @@ const ReportsAdmin = () => {
           <div className="w-[35%] md:w-auto">
             <select
               id="years"
-              class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option selected>انتخاب سال</option>
+              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
+              <option defaultValue={null}>انتخاب سال</option>
               {lastNyears(1402, 10).map((item) => (
                 <option key={item} value={item}>
                   {item}
@@ -45,8 +45,8 @@ const ReportsAdmin = () => {
           <div className="w-[45%] md:w-auto">
             <select
               id="years"
-              class="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option selected>جست و جو بر اساس</option>
+              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
+              <option defaultValue={null}>جست و جو بر اساس</option>
               <option value="name">نام</option>
               <option value="pCode">کد پرسنلی</option>
             </select>

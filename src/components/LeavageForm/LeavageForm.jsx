@@ -20,26 +20,26 @@ const LeavageForm = () => {
             <form action="">
               <span>نوع مرخصی : </span>
               <div className="my-3 flex flex-col gap-4">
-                <div class="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <input
                     id="default-radio-1"
                     type="radio"
                     name="leavage-type"
-                    class=""
+                    className=""
                   />
-                  <label for="default-radio-1" class="text-sm">
+                  <label for="default-radio-1" className="text-sm">
                     روزانه
                   </label>
                 </div>
-                <div class="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <input
                     id="default-radio-2"
                     type="radio"
                     value=""
                     name="leavage-type"
-                    class=""
+                    className=""
                   />
-                  <label for="default-radio-2" class="text-sm">
+                  <label for="default-radio-2" className="text-sm">
                     ساعتی
                   </label>
                 </div>

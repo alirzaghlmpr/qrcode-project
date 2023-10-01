@@ -6,8 +6,8 @@ const MobileNavigation = ({ navItems }) => {
   const path = usePathname();
 
   return (
-    <div class="fixed bottom-0 left-0 z-50 w-full bg-indigo-950">
-      <div class="flex justify-evenly items-center">
+    <div className="fixed bottom-0 left-0 z-50 w-full bg-indigo-950">
+      <div className="flex justify-evenly items-center">
         {navItems.map((item) => {
           return (
             <Link

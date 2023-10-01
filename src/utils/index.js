@@ -11,3 +11,17 @@ export const daysOfMonth = () => {
 
   return days;
 };
+
+export const getSearchParams = (searchParamsObject, enumObject) => {
+  let params = [];
+  for (const key in enumObject) {
+    if (searchParamsObject.get(enumObject[key])) {
+      let template = `${enumObject[key]}=${searchParamsObject.get(
+        enumObject[key]
+      )}`;
+      params.push(template);
+    }
+  }
+
+  return params;
+};

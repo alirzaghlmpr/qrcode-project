@@ -9,6 +9,7 @@ import { UserNavbarItems } from "@/constants";
 
 const History = () => {
   const { width } = useWindowSize();
+
   return width < 768 ? (
     <MobileDashboard navItems={UserNavbarItems}>
       <TableHistory />
