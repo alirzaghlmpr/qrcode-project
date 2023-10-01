@@ -15,13 +15,18 @@ export const daysOfMonth = () => {
 export const getSearchParams = (searchParamsObject, enumObject) => {
   let params = [];
   for (const key in enumObject) {
-    if (searchParamsObject.get(enumObject[key])) {
-      let template = `${enumObject[key]}=${searchParamsObject.get(
-        enumObject[key]
-      )}`;
-      params.push(template);
-    }
+    if (searchParamsObject.get(enumObject[key]))
+      params.push(
+        `${enumObject[key]}=${searchParamsObject.get(enumObject[key])}`
+      );
   }
 
   return params;
+};
+
+export const createTableTdFromObject = (object, className) => {
+  let datas = [];
+  for (const key in object)
+    datas.push(<td className={className && className}>{object[key]}</td>);
+  return datas;
 };
