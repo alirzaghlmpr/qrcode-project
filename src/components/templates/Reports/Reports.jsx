@@ -1,19 +1,20 @@
+"use client";
 import React from "react";
 import { Monthes } from "@/constants";
 import { lastNyears } from "@/utils";
-
-const ReportsAdmin = () => {
+import Button from "@/components/shared/Button";
+const Reports = () => {
   return (
     <div className="w-[100%] p-5 mt-3">
-      <div className="bg-indigo-50 h-[70vh] rounded-lg gap-5 flex p-6 flex-col justify-center">
-        <form
-          action=""
-          className="flex flex-wrap justify-center md:justify-start gap-4">
-          <div className="w-[35%] md:w-auto">
+      <div className="bg-indigo-50 h-[70vh] rounded-lg gap-5 flex p-5 flex-col items-center justify-center">
+        <form action="" className="flex justify-start gap-5 items-center">
+          <div>
             <select
               id="monthes"
               className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option defaultValue={null}>انتخاب ماه</option>
+              <option value={null} defaultValue>
+                انتخاب ماه
+              </option>
               {Monthes.map(({ name, id, value }) => (
                 <option key={id} value={value}>
                   {name}
@@ -22,7 +23,7 @@ const ReportsAdmin = () => {
             </select>
           </div>
 
-          <div className="w-[35%] md:w-auto">
+          <div>
             <select
               id="years"
               className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
@@ -35,32 +36,15 @@ const ReportsAdmin = () => {
             </select>
           </div>
 
-          <div className="w-[45%] md:w-auto">
-            <input
-              type="text"
-              placeholder="جست و جو..."
-              className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
-            />
-          </div>
-          <div className="w-[45%] md:w-auto">
-            <select
-              id="years"
-              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option defaultValue={null}>جست و جو بر اساس</option>
-              <option value="name">نام</option>
-              <option value="pCode">کد پرسنلی</option>
-            </select>
-          </div>
-
-          <div className="w-[100%] md:w-auto">
-            <button
-              type="submit"
-              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50 w-[100%]">
+          <div>
+            <Button
+              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50"
+              type="submit">
               اعمال فیلتر
-            </button>
+            </Button>
           </div>
         </form>
-        <div className="text-sm flex p-3 md:gap-3 gap-2 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
+        <div className="flex p-3 gap-3 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
           <p>
             <span>ساعات حضور : </span>
             <span>100 ساعت</span>
@@ -100,4 +84,4 @@ const ReportsAdmin = () => {
   );
 };
 
-export default ReportsAdmin;
+export default Reports;

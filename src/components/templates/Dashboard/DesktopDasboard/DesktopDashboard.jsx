@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/templates/Sidebar";
 const DesktopDashboard = ({ children, navItems }) => {
   return (
     <div className="flex">

@@ -1,6 +1,6 @@
 import React from "react";
-import MobileHeader from "@/components/MobileHeader";
-import MobileNavigation from "@/components/MobileNavigation";
+import MobileHeader from "@/components/templates/MobileHeader";
+import MobileNavigation from "@/components/templates/MobileNavigation";
 const MobileDashboard = ({ children, navItems }) => {
   return (
     <div className="flex flex-col">

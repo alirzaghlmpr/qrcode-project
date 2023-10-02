@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import Button from "@/components/shared/Button";
 
 const LeavageFormAdmin = () => {
   return (
@@ -51,18 +52,19 @@ const LeavageFormAdmin = () => {
                 <span>وضعیت : </span>
                 <span className="text-amber-500 font-bold">در حال بررسی</span>
                 <p className="flex gap-4 mt-2">
-                  <button className="flex items-center gap-2 text-sm text-slate-50 bg-green-700 rounded-lg px-3 py-1">
+                  <Button className="flex items-center gap-2 text-sm text-slate-50 bg-green-700 rounded-lg px-3 py-1">
                     <span>
                       <CheckIcon />
                     </span>
                     <span>تایید</span>
-                  </button>
-                  <button className="flex items-center gap-2 text-sm text-slate-50 bg-red-700 rounded-lg px-3 py-1">
+                  </Button>
+
+                  <Button className="flex items-center gap-2 text-sm text-slate-50 bg-red-700 rounded-lg px-3 py-1">
                     <span>
                       <CloseIcon />
                     </span>
                     <span>رد</span>
-                  </button>
+                  </Button>
                 </p>
               </li>
               <li className="text-sm my-8">

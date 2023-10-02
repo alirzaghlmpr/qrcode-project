@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import DesktopDasboard from "@/components/Dashboard/DesktopDasboard";
-import MobileDashboard from "@/components/Dashboard/MobileDashboard";
-import Reports from "@/components/Reports";
+import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
+import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
+import Reports from "@/components/templates/Reports";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { UserNavbarItems } from "@/constants";
 const Report = () => {

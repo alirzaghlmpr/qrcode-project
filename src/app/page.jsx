@@ -4,7 +4,8 @@ import React from "react";
 import QRcodeLogin from "@/assets/qrcode-login.png";
 import Image from "next/image";
 import { LoginFormFields } from "@/constants";
-import TextField from "@/components/TextField";
+import TextField from "@/components/templates/TextField";
+import Button from "@/components/shared/Button";
 
 const page = () => {
   const handleFormSubmit = (e) => {
@@ -36,11 +37,7 @@ const page = () => {
           name={LoginFormFields.Password}
           id={`_${LoginFormFields.Password}`}
         />
-        <button
-          type="submit"
-          className="bg-indigo-950 text-slate-50 rounded-lg p-2">
-          ورود
-        </button>
+        <Button type="submit">ورود</Button>
       </form>
     </div>
   );

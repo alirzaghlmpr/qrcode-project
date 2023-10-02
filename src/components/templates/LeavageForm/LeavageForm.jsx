@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import DatePicker, { Calendar, DateObject } from "react-multi-date-picker";
+import React, { useState } from "react";
+import { Calendar, DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import "react-multi-date-picker/styles/colors/purple.css";
+import Button from "@/components/shared/Button";
 
 const LeavageForm = () => {
   const [leavageDate, setLeavageDate] = useState(
@@ -67,11 +68,9 @@ const LeavageForm = () => {
                 <span>روز/ساعت</span>
               </div>
 
-              <button
-                className="w-[100%] my-2 bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50"
-                type="submit">
+              <Button extraClasses="w-[100%] mt-2" type="submit">
                 ثبت درخواست
-              </button>
+              </Button>
             </form>
           </div>
           <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[165px] md:h-[400px] overflow-y-scroll costume-scroll">

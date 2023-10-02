@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import DesktopDasboard from "@/components/Dashboard/DesktopDasboard";
-import MobileDashboard from "@/components/Dashboard/MobileDashboard";
-import QRcodeGenerator from "@/components/QRcodeGenerator";
+import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
+import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
+import QRcodeGenerator from "@/components/templates/QRcodeGenerator";
 import { useWindowSize } from "@uidotdev/usehooks";
 import { UserNavbarItems } from "@/constants";
 const Dashboard = () => {

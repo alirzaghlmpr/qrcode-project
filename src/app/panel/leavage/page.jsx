@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import DesktopDasboard from "@/components/Dashboard/DesktopDasboard";
-import MobileDashboard from "@/components/Dashboard/MobileDashboard";
+import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
+import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import { useWindowSize } from "@uidotdev/usehooks";
-import LeavageFormAdmin from "@/components/LeavageFormAdmin";
+import LeavageFormAdmin from "@/components/templates/LeavageFormAdmin";
 import { AdminNavbarItems } from "@/constants";
 const Leavage = () => {
   const { width } = useWindowSize();

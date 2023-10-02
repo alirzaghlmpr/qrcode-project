@@ -1,5 +1,6 @@
 import React from "react";
 import TextField from "../TextField";
+import Button from "@/components/shared/Button";
 
 const AddUserForm = () => {
   return (
@@ -20,11 +21,7 @@ const AddUserForm = () => {
 
             <label htmlFor="personelImg">عکس پرسنلی</label>
             <input id="personelImg" type="file" />
-            <button
-              type="submit"
-              className="bg-indigo-950 text-slate-50 rounded-lg p-3">
-              ثبت اطلاعات
-            </button>
+            <Button type="submit">ثبت اطلاعات</Button>
           </form>
         </div>
       </div>

@@ -1,11 +1,19 @@
+"use client";
 import React from "react";
-import { Monthes } from "@/constants";
-import { lastNyears, daysOfMonth } from "@/utils";
-import { TableHistoryHeadersAdmin } from "@/constants";
-import { AdminHistoryTableFakeData } from "@/mocks";
-import Table from "../shared/Table";
+import { Monthes, SearchParams } from "@/constants";
+import { lastNyears, daysOfMonth, getSearchParams } from "@/utils";
+import { useSearchParams } from "next/navigation";
+import { TableHistoryHeadersUser } from "@/constants";
+import Table from "@/components/shared/Table";
+import { UserHistoryTableFakeData } from "@/mocks";
+import Button from "@/components/shared/Button";
 
-const TableHistoryAdmin = () => {
+const TableHistory = () => {
+  const searchParams = useSearchParams();
+
+  const params = getSearchParams(searchParams, SearchParams);
+  console.log(params);
+
   return (
     <div className="w-[100%] p-5 mt-3">
       <div className="bg-indigo-50 h-[70vh] rounded-lg gap-5 flex p-5 flex-col items-start justify-start">
@@ -54,29 +62,13 @@ const TableHistoryAdmin = () => {
                 ))}
               </select>
             </div>
-            <div>
-              <input
-                type="text"
-                placeholder="جست و جو..."
-                className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
-              />
-            </div>
-            <div>
-              <select
-                id="years"
-                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-                <option defaultValue={null}>جست و جو بر اساس</option>
-                <option value="name">نام</option>
-                <option value="pCode">کد پرسنلی</option>
-              </select>
-            </div>
 
             <div className="w-[100%] md:w-auto">
-              <button
+              <Button
                 type="submit"
                 className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50 w-[100%]">
                 اعمال فیلتر
-              </button>
+              </Button>
             </div>
           </form>
         </div>
@@ -84,8 +76,8 @@ const TableHistoryAdmin = () => {
           className="flex gap-5 flex-col w-[100%] relative p-5 costume-scroll"
           style={{ direction: "rtl" }}>
           <Table
-            header={TableHistoryHeadersAdmin}
-            datas={AdminHistoryTableFakeData}
+            header={TableHistoryHeadersUser}
+            datas={UserHistoryTableFakeData}
           />
         </div>
       </div>
@@ -93,4 +85,4 @@ const TableHistoryAdmin = () => {
   );
 };
 
-export default TableHistoryAdmin;
+export default TableHistory;

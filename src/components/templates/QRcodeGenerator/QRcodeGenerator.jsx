@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/shared/Button";
 import React from "react";
 
 const QRcodeGenerator = () => {
@@ -23,9 +24,7 @@ const QRcodeGenerator = () => {
             <span>کلیک کنید </span>
           </p>
         </div>
-        <button className="bg-indigo-950 mt-4 w-[60%] text-slate-50 rounded-lg p-2">
-          ایجاد کیوار کد
-        </button>
+        <Button extraClasses="mt-4 w-[60%]">ایجاد کیوار</Button>
       </div>
     </div>
   );
