@@ -35,15 +35,16 @@ const ReportsAdmin = () => {
             />
           </div>
 
-          <div className="w-[45%] md:w-auto">
+          <div className="w-[100%] md:w-auto">
             <input
               type="text"
               placeholder="جست و جو..."
-              className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
+              className="w-[100%] text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
             />
           </div>
-          <div className="w-[45%] md:w-auto">
+          <div className="w-[100%] md:w-auto">
             <Select
+              extraClasses="w-[100%]"
               id="query-type"
               defaultValue="جست و جو بر اساس"
               options={[

@@ -40,7 +40,7 @@ export const UserNavbarItems = [
 export const AdminNavbarItems = [
   {
     id: 1,
-    link: "تاریخجه",
+    link: "تاریخچه",
     to: "/panel",
     icon: <RestoreIcon sx={{ color: grey[50] }} />,
   },
