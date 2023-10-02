@@ -2,6 +2,7 @@ import React from "react";
 import { Monthes } from "@/constants";
 import { lastNyears } from "@/utils";
 import Button from "@/components/shared/Button";
+import Select from "@/components/shared/Select";
 
 const ReportsAdmin = () => {
   return (
@@ -11,29 +12,27 @@ const ReportsAdmin = () => {
           action=""
           className="flex flex-wrap justify-center md:justify-start gap-4">
           <div className="w-[35%] md:w-auto">
-            <select
+            <Select
               id="monthes"
-              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option defaultValue={null}>انتخاب ماه</option>
-              {Monthes.map(({ name, id, value }) => (
+              defaultValue="انتخاب ماه"
+              options={Monthes.map(({ name, id, value }) => (
                 <option key={id} value={value}>
                   {name}
                 </option>
               ))}
-            </select>
+            />
           </div>
 
           <div className="w-[35%] md:w-auto">
-            <select
+            <Select
               id="years"
-              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option defaultValue={null}>انتخاب سال</option>
-              {lastNyears(1402, 10).map((item) => (
+              defaultValue="انتخاب سال"
+              options={lastNyears(1402, 10).map((item) => (
                 <option key={item} value={item}>
                   {item}
                 </option>
               ))}
-            </select>
+            />
           </div>
 
           <div className="w-[45%] md:w-auto">
@@ -44,13 +43,18 @@ const ReportsAdmin = () => {
             />
           </div>
           <div className="w-[45%] md:w-auto">
-            <select
-              id="years"
-              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-              <option defaultValue={null}>جست و جو بر اساس</option>
-              <option value="name">نام</option>
-              <option value="pCode">کد پرسنلی</option>
-            </select>
+            <Select
+              id="query-type"
+              defaultValue="جست و جو بر اساس"
+              options={[
+                <option key={"نام"} value="name">
+                  نام
+                </option>,
+                <option key={"کد پرسنلی"} value="pCode">
+                  کد پرسنلی
+                </option>,
+              ]}
+            />
           </div>
 
           <div className="w-[100%] md:w-auto">

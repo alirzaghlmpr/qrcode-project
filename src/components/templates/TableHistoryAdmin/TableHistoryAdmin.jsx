@@ -5,6 +5,7 @@ import { TableHistoryHeadersAdmin } from "@/constants";
 import { AdminHistoryTableFakeData } from "@/mocks";
 import Table from "@/components/shared/Table";
 import Button from "@/components/shared/Button";
+import Select from "@/components/shared/Select";
 
 const TableHistoryAdmin = () => {
   return (
@@ -19,41 +20,38 @@ const TableHistoryAdmin = () => {
             action=""
             className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
             <div>
-              <select
+              <Select
                 id="monthes"
-                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-                <option defaultValue={null}>انتخاب ماه</option>
-                {Monthes.map(({ name, id, value }) => (
+                defaultValue="انتخاب ماه"
+                options={Monthes.map(({ name, id, value }) => (
                   <option key={id} value={value}>
                     {name}
                   </option>
                 ))}
-              </select>
+              />
             </div>
             <div>
-              <select
-                id="monthes"
-                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-                <option defaultValue={null}>انتخاب روز</option>
-                {daysOfMonth().map((item) => (
+              <Select
+                id="days"
+                defaultValue="انتخاب روز"
+                options={daysOfMonth().map((item) => (
                   <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
-              </select>
+              />
             </div>
 
             <div>
-              <select
+              <Select
                 id="years"
-                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-                <option defaultValue={null}>انتخاب سال</option>
-                {lastNyears(1402, 10).map((item) => (
+                defaultValue="انتخاب سال"
+                options={lastNyears(1402, 10).map((item) => (
                   <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
-              </select>
+              />
             </div>
             <div>
               <input
@@ -63,13 +61,18 @@ const TableHistoryAdmin = () => {
               />
             </div>
             <div>
-              <select
-                id="years"
-                className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50">
-                <option defaultValue={null}>جست و جو بر اساس</option>
-                <option value="name">نام</option>
-                <option value="pCode">کد پرسنلی</option>
-              </select>
+              <Select
+                id="query-type"
+                defaultValue="جست و جو بر اساس"
+                options={[
+                  <option key={"نام"} value="name">
+                    نام
+                  </option>,
+                  <option key={"کد پرسنلی"} value="pCode">
+                    کد پرسنلی
+                  </option>,
+                ]}
+              />
             </div>
 
             <div className="w-[100%] md:w-auto">
