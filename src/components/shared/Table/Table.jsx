@@ -1,5 +1,5 @@
 import React from "react";
-import { createTableTdFromObject } from "@/utils";
+import createTableTdFromObject from "@/utils/createTableTdFromObject";
 
 const Table = ({ header, datas }) => {
   return (

@@ -5,7 +5,7 @@ import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
 import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import { useWindowSize } from "@uidotdev/usehooks";
 import LeavageFormAdmin from "@/components/templates/LeavageFormAdmin";
-import { AdminNavbarItems } from "@/constants";
+import AdminNavbarItems from "@/constants/AdminNavbarItems";
 const Leavage = () => {
   const { width } = useWindowSize();
   return width < 768 ? (

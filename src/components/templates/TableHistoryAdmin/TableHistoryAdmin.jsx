@@ -1,8 +1,9 @@
 import React from "react";
-import { Monthes } from "@/constants";
-import { lastNyears, daysOfMonth } from "@/utils";
-import { TableHistoryHeadersAdmin } from "@/constants";
-import { AdminHistoryTableFakeData } from "@/mocks";
+import Monthes from "@/constants/Monthes";
+import daysOfMonth from "@/utils/daysOfMonth";
+import lastNyears from "@/utils/lastNyears";
+import TableHistoryHeadersAdmin from "@/constants/TableHistoryHeadersAdmin";
+import AdminHistoryTableFakeData from "@/mocks/AdminHistoryTableFakeData";
 import Table from "@/components/shared/Table";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";

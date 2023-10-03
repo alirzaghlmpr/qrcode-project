@@ -5,7 +5,7 @@ import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
 import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import QRcodeGenerator from "@/components/templates/QRcodeGenerator";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { UserNavbarItems } from "@/constants";
+import UserNavbarItems from "@/constants/UserNavbarItems";
 const Dashboard = () => {
   const { width } = useWindowSize();
   useEffect(() => {

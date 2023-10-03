@@ -4,7 +4,7 @@ import React from "react";
 import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
 import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { AdminNavbarItems } from "@/constants";
+import AdminNavbarItems from "@/constants/AdminNavbarItems";
 import AddUserForm from "@/components/templates/AddUserForm";
 const AddUser = () => {
   const { width } = useWindowSize();

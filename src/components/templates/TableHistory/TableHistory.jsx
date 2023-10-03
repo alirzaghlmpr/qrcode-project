@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
-import { Monthes, SearchParams } from "@/constants";
-import { lastNyears, daysOfMonth, getSearchParams } from "@/utils";
+import Monthes from "@/constants/Monthes";
+import SearchParams from "@/models/SearchParams";
+import lastNyears from "@/utils/lastNyears";
+import getSearchParams from "@/utils/getSearchParams";
+import daysOfMonth from "@/utils/daysOfMonth";
 import { useSearchParams } from "next/navigation";
-import { TableHistoryHeadersUser } from "@/constants";
+import TableHistoryHeadersUser from "@/constants/TableHistoryHeadersUser";
 import Table from "@/components/shared/Table";
-import { UserHistoryTableFakeData } from "@/mocks";
+import UserHistoryTableFakeData from "@/mocks/UserHistoryTableFakeData";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 

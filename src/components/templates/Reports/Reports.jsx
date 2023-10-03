@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { Monthes } from "@/constants";
-import { lastNyears } from "@/utils";
+import Monthes from "@/constants/Monthes";
+import lastNyears from "@/utils/lastNyears";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 

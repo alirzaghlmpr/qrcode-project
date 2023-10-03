@@ -5,7 +5,7 @@ import DesktopDasboard from "@/components/templates/Dashboard/DesktopDasboard";
 import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import Reports from "@/components/templates/Reports";
 import { useWindowSize } from "@uidotdev/usehooks";
-import { UserNavbarItems } from "@/constants";
+import UserNavbarItems from "@/constants/UserNavbarItems";
 const Report = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
