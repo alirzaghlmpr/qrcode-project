@@ -6,6 +6,7 @@ import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import QRcodeGenerator from "@/components/templates/QRcodeGenerator";
 import { useWindowSize } from "@uidotdev/usehooks";
 import UserNavbarItems from "@/constants/UserNavbarItems";
+import DashboardContent from "@/components/layouts/DashboardContent";
 const Dashboard = () => {
   const { width } = useWindowSize();
   useEffect(() => {
@@ -27,11 +28,15 @@ const Dashboard = () => {
 
   return width < 768 ? (
     <MobileDashboard navItems={UserNavbarItems}>
-      <QRcodeGenerator />
+      <DashboardContent>
+        <QRcodeGenerator />
+      </DashboardContent>
     </MobileDashboard>
   ) : (
     <DesktopDasboard navItems={UserNavbarItems}>
-      <QRcodeGenerator />
+      <DashboardContent>
+        <QRcodeGenerator />
+      </DashboardContent>
     </DesktopDasboard>
   );
 };

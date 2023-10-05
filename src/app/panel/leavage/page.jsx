@@ -6,15 +6,21 @@ import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import { useWindowSize } from "@uidotdev/usehooks";
 import LeavageFormAdmin from "@/components/templates/LeavageFormAdmin";
 import AdminNavbarItems from "@/constants/AdminNavbarItems";
+import DashboardContent from "@/components/layouts/DashboardContent";
+
 const Leavage = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
     <MobileDashboard navItems={AdminNavbarItems}>
-      <LeavageFormAdmin />
+      <DashboardContent>
+        <LeavageFormAdmin />
+      </DashboardContent>
     </MobileDashboard>
   ) : (
     <DesktopDasboard navItems={AdminNavbarItems}>
-      <LeavageFormAdmin />
+      <DashboardContent>
+        <LeavageFormAdmin />
+      </DashboardContent>
     </DesktopDasboard>
   );
 };

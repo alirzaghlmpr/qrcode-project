@@ -6,15 +6,21 @@ import MobileDashboard from "@/components/templates/Dashboard/MobileDashboard";
 import { useWindowSize } from "@uidotdev/usehooks";
 import AdminNavbarItems from "@/constants/AdminNavbarItems";
 import ReportsAdmin from "@/components/templates/ReportsAdmin";
+import DashboardContent from "@/components/layouts/DashboardContent";
+
 const Reports = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
     <MobileDashboard navItems={AdminNavbarItems}>
-      <ReportsAdmin />
+      <DashboardContent>
+        <ReportsAdmin />
+      </DashboardContent>
     </MobileDashboard>
   ) : (
     <DesktopDasboard navItems={AdminNavbarItems}>
-      <ReportsAdmin />
+      <DashboardContent>
+        <ReportsAdmin />
+      </DashboardContent>
     </DesktopDasboard>
   );
 };
