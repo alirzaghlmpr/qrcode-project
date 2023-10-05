@@ -7,6 +7,7 @@ import AdminHistoryTableFakeData from "@/mocks/AdminHistoryTableFakeData";
 import Table from "@/components/shared/Table";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
+import TextField from "@/components/shared/TextField";
 
 const TableHistoryAdmin = () => {
   return (
@@ -55,8 +56,9 @@ const TableHistoryAdmin = () => {
               />
             </div>
             <div>
-              <input
-                type="text"
+              <TextField
+                name="searchQuery"
+                id="search-query"
                 placeholder="جست و جو..."
                 className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
               />

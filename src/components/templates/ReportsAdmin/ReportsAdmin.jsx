@@ -3,6 +3,7 @@ import Monthes from "@/constants/Monthes";
 import lastNyears from "@/utils/lastNyears";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
+import TextField from "@/components/shared/TextField";
 
 const ReportsAdmin = () => {
   return (
@@ -36,8 +37,9 @@ const ReportsAdmin = () => {
           </div>
 
           <div className="w-[100%] md:w-auto">
-            <input
-              type="text"
+            <TextField
+              name="searchQuery"
+              id="search-query"
               placeholder="جست و جو..."
               className="w-[100%] text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
             />

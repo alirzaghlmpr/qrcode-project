@@ -4,7 +4,7 @@ import React from "react";
 import QRcodeLogin from "@/assets/qrcode-login.png";
 import Image from "next/image";
 import LoginFormFields from "@/models/LoginFormFields";
-import TextField from "@/components/templates/TextField";
+import TextField from "@/components/shared/TextField";
 import Button from "@/components/shared/Button";
 
 const page = () => {
@@ -26,16 +26,15 @@ const page = () => {
         onSubmit={handleFormSubmit}
         className="flex flex-col gap-10 w-[80%] md:w-[30%]">
         <TextField
-          type="text"
-          placeholder="نام کاربری"
-          name={LoginFormFields.Username}
-          id={`_${LoginFormFields.Username}`}
+          placeholder={LoginFormFields.Username.placeholder}
+          name={LoginFormFields.Username.title}
+          id={`_${LoginFormFields.Username.title}`}
         />
         <TextField
           type="password"
-          placeholder="رمز عبور"
-          name={LoginFormFields.Password}
-          id={`_${LoginFormFields.Password}`}
+          placeholder={LoginFormFields.Password.placeholder}
+          name={LoginFormFields.Password.title}
+          id={`_${LoginFormFields.Password.title}`}
         />
         <Button type="submit">ورود</Button>
       </form>
