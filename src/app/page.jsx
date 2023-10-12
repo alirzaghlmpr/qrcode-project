@@ -6,15 +6,22 @@ import Image from "next/image";
 import LoginFormFields from "@/models/LoginFormFields";
 import TextField from "@/components/shared/TextField";
 import Button from "@/components/shared/Button";
+import signIn from "@/apis/Login";
 
 const page = () => {
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     let formsElements = e.target.elements;
-    let username = formsElements.namedItem(LoginFormFields.Username).value;
-    let password = formsElements.namedItem(LoginFormFields.Password).value;
+    let username = formsElements.namedItem(
+      LoginFormFields?.Username?.title
+    )?.value;
+    let password = formsElements.namedItem(
+      LoginFormFields?.Password?.title
+    )?.value;
 
     console.log(`username :${username} , password :${password}`);
+    let response = await signIn({ username: username, password: password });
+    console.log(response);
   };
   return (
     <div className="flex p-2 flex-col w-100 h-[100vh] bg-slate-200 items-center justify-center gap-10">
@@ -26,15 +33,15 @@ const page = () => {
         onSubmit={handleFormSubmit}
         className="flex flex-col gap-10 w-[80%] md:w-[30%]">
         <TextField
-          placeholder={LoginFormFields.Username.placeholder}
-          name={LoginFormFields.Username.title}
-          id={`_${LoginFormFields.Username.title}`}
+          placeholder={LoginFormFields?.Username?.placeholder}
+          name={LoginFormFields?.Username?.title}
+          id={`_${LoginFormFields?.Username?.title}`}
         />
         <TextField
           type="password"
-          placeholder={LoginFormFields.Password.placeholder}
-          name={LoginFormFields.Password.title}
-          id={`_${LoginFormFields.Password.title}`}
+          placeholder={LoginFormFields?.Password?.placeholder}
+          name={LoginFormFields?.Password?.title}
+          id={`_${LoginFormFields?.Password?.title}`}
         />
         <Button type="submit">ورود</Button>
       </form>
