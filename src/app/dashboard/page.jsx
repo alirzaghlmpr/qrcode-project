@@ -7,16 +7,12 @@ import QRcodeGenerator from "@/components/templates/QRcodeGenerator";
 import { useWindowSize } from "@uidotdev/usehooks";
 import UserNavbarItems from "@/constants/UserNavbarItems";
 import DashboardContent from "@/components/layouts/DashboardContent";
+import getPeopleInfos from "@/apis/GetPeopleInfos";
+import getUserInfo from "@/apis/GetUserInfo";
 const Dashboard = () => {
   const { width } = useWindowSize();
   useEffect(() => {
-    const fetchData = async () => {
-      let response = await fetch(
-        "https://qrcode-auth-system.onrender.com/api/v1/admin/createQRcode/64f10b25fec5e426ebdd4d73"
-      );
-
-      return response.ok ? response.json() : new Error("failed to fetch data");
-    };
+    const fetchData = async () => await getUserInfo("7506988350");
 
     try {
       let r = fetchData();

@@ -3,6 +3,9 @@ const signIn = async (data) => {
     let response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`,
       {
+        headers: {
+          "Content-Type": "application/json",
+        },
         method: "POST",
         body: JSON.stringify(data),
       }
