@@ -1,6 +1,8 @@
 login , insertuser , get user info(username) , get people infos , qrdcode generation => 200
+qrcodevalidation (route scanner) => 200
 
 
 Todos:
 authentication using jwt and localstorage
 qrcode ro neshon bede b karbar (handle kardane qrcode generation)
+qrcode ro scan miknoe beferse (qrcode validation)

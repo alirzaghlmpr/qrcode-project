@@ -10,13 +10,27 @@ import DashboardContent from "@/components/layouts/DashboardContent";
 import getPeopleInfos from "@/apis/GetPeopleInfos";
 import getUserInfo from "@/apis/GetUserInfo";
 import createQRcode from "@/apis/CreateQRcode";
+import qrcodeValidation from "@/apis/QRcodeValidation";
 
 const Dashboard = () => {
   const { width } = useWindowSize();
+  //      await createQRcode("6528fc941908667bec5019cc");
+  /*
+  
+        await qrcodeValidation({
+        qrCodeData: JSON.parse(
+          `{"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T10:17:46.444Z","expirationDate":"2023-10-13T10:27:46.444Z"}`
+        ),
+      });
+  
+  */
   useEffect(() => {
     const fetchData = async () =>
-      await createQRcode("6528fc941908667bec5019cc");
-
+      await qrcodeValidation({
+        qrCodeData: JSON.parse(
+          `{"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T10:17:46.444Z","expirationDate":"2023-10-13T10:27:46.444Z"}`
+        ),
+      });
     try {
       let r = fetchData();
       console.log(r);
