@@ -1,8 +1,14 @@
-const createQRcode = async (personID) => {
+const createQRcode = async (personID, data) => {
   try {
     let response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/createQRcode/${personID}`,
-      { method: "POST" }
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      }
     );
     return response;
   } catch (err) {
@@ -11,7 +17,6 @@ const createQRcode = async (personID) => {
 };
 
 export default createQRcode;
-
 
 /**
  * 

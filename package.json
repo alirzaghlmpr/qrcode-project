@@ -27,7 +27,6 @@
     "react-multilevel-sidebar": "^1.0.4",
     "sharp": "^0.32.6",
     "sweetalert2": "^11.7.28",
-    "swr": "^2.2.2",
     "tailwindcss": "3.3.3"
   },
   "devDependencies": {

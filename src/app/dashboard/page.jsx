@@ -16,12 +16,12 @@ import AuthProvider from "@/components/layouts/AuthProvider";
 
 const Dashboard = () => {
   const { width } = useWindowSize();
-  //      await createQRcode("6528fc941908667bec5019cc");
+  //      await createQRcode("6528fc941908667bec5019cc",{isEntrance:true});
   /*
   
         await qrcodeValidation({
         qrCodeData: JSON.parse(
-          `{"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T10:17:46.444Z","expirationDate":"2023-10-13T10:27:46.444Z"}`
+          `{"isEntrance":false,"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T18:15:09.936Z","expirationDate":"2023-10-13T18:25:09.936Z"}`
         ),
       });
   
