@@ -7,8 +7,8 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 
 const AuthProvider = ({ children }) => {
   const [userInfos, setUserinfos] = useLocalStorage("infos", null);
-
-  console.log(userInfos);
+  if (userInfos)
+    if (new Date(userInfos?.expirationDate) < new Date()) setUserinfos(null);
 
   if (userInfos === null) {
     redirect("/");
