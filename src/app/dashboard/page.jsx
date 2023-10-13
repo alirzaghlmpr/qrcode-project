@@ -12,6 +12,7 @@ import getUserInfo from "@/apis/GetUserInfo";
 import createQRcode from "@/apis/CreateQRcode";
 import qrcodeValidation from "@/apis/QRcodeValidation";
 import getUserHistory from "@/apis/UserHistory";
+import AuthProvider from "@/components/layouts/AuthProvider";
 
 const Dashboard = () => {
   const { width } = useWindowSize();
@@ -37,17 +38,21 @@ const Dashboard = () => {
   // }, []);
 
   return width < 768 ? (
-    <MobileDashboard navItems={UserNavbarItems}>
-      <DashboardContent>
-        <QRcodeGenerator />
-      </DashboardContent>
-    </MobileDashboard>
+    <AuthProvider>
+      <MobileDashboard navItems={UserNavbarItems}>
+        <DashboardContent>
+          <QRcodeGenerator />
+        </DashboardContent>
+      </MobileDashboard>
+    </AuthProvider>
   ) : (
-    <DesktopDasboard navItems={UserNavbarItems}>
-      <DashboardContent>
-        <QRcodeGenerator />
-      </DashboardContent>
-    </DesktopDasboard>
+    <AuthProvider>
+      <DesktopDasboard navItems={UserNavbarItems}>
+        <DashboardContent>
+          <QRcodeGenerator />
+        </DashboardContent>
+      </DesktopDasboard>
+    </AuthProvider>
   );
 };
 

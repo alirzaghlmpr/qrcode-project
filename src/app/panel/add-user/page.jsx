@@ -7,21 +7,26 @@ import { useWindowSize } from "@uidotdev/usehooks";
 import AdminNavbarItems from "@/constants/AdminNavbarItems";
 import AddUserForm from "@/components/templates/AddUserForm";
 import DashboardContent from "@/components/layouts/DashboardContent";
+import AuthProvider from "@/components/layouts/AuthProvider";
 
 const AddUser = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
-    <MobileDashboard navItems={AdminNavbarItems}>
-      <DashboardContent>
-        <AddUserForm />
-      </DashboardContent>
-    </MobileDashboard>
+    <AuthProvider>
+      <MobileDashboard navItems={AdminNavbarItems}>
+        <DashboardContent>
+          <AddUserForm />
+        </DashboardContent>
+      </MobileDashboard>
+    </AuthProvider>
   ) : (
-    <DesktopDasboard navItems={AdminNavbarItems}>
-      <DashboardContent>
-        <AddUserForm />
-      </DashboardContent>
-    </DesktopDasboard>
+    <AuthProvider>
+      <DesktopDasboard navItems={AdminNavbarItems}>
+        <DashboardContent>
+          <AddUserForm />
+        </DashboardContent>
+      </DesktopDasboard>
+    </AuthProvider>
   );
 };
 
