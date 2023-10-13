@@ -2,6 +2,8 @@
 
 import Button from "@/components/shared/Button";
 import React from "react";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const QRcodeGenerator = () => {
   return (
@@ -23,7 +25,22 @@ const QRcodeGenerator = () => {
           <span>کلیک کنید </span>
         </p>
       </div>
-      <Button extraClasses="mt-4 w-[60%]">ایجاد کیوار</Button>
+      <Button extraClasses="mt-4 w-[60%]">
+        <p className="flex justify-between">
+          <span>ایجاد کیوار برای ورود</span>
+          <span>
+            <LoginIcon />
+          </span>
+        </p>
+      </Button>
+      <Button className="bg-indigo-500 text-slate-50 rounded-lg p-2 mt-4 w-[60%]">
+        <p className="flex justify-between">
+          <span>ایجاد کیوار برای خروج</span>
+          <span>
+            <LogoutIcon />
+          </span>
+        </p>
+      </Button>
     </>
   );
 };
