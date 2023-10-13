@@ -1,1 +1,6 @@
-login , insertuser , get user info(username) , get people infos => 200
+login , insertuser , get user info(username) , get people infos , qrdcode generation => 200
+
+
+Todos:
+authentication using jwt and localstorage
+qrcode ro neshon bede b karbar (handle kardane qrcode generation)

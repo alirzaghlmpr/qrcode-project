@@ -9,10 +9,13 @@ import UserNavbarItems from "@/constants/UserNavbarItems";
 import DashboardContent from "@/components/layouts/DashboardContent";
 import getPeopleInfos from "@/apis/GetPeopleInfos";
 import getUserInfo from "@/apis/GetUserInfo";
+import createQRcode from "@/apis/CreateQRcode";
+
 const Dashboard = () => {
   const { width } = useWindowSize();
   useEffect(() => {
-    const fetchData = async () => await getUserInfo("7506988350");
+    const fetchData = async () =>
+      await createQRcode("6528fc941908667bec5019cc");
 
     try {
       let r = fetchData();
