@@ -11,6 +11,7 @@ import getPeopleInfos from "@/apis/GetPeopleInfos";
 import getUserInfo from "@/apis/GetUserInfo";
 import createQRcode from "@/apis/CreateQRcode";
 import qrcodeValidation from "@/apis/QRcodeValidation";
+import getUserHistory from "@/apis/UserHistory";
 
 const Dashboard = () => {
   const { width } = useWindowSize();
@@ -26,11 +27,7 @@ const Dashboard = () => {
   */
   useEffect(() => {
     const fetchData = async () =>
-      await qrcodeValidation({
-        qrCodeData: JSON.parse(
-          `{"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T10:17:46.444Z","expirationDate":"2023-10-13T10:27:46.444Z"}`
-        ),
-      });
+      await getUserHistory("6528fc941908667bec5019cc");
     try {
       let r = fetchData();
       console.log(r);
