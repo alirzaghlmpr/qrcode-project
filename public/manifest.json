@@ -1,0 +1,24 @@
+{
+  "theme_color": "#684b91",
+  "background_color": "#000000",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "name": "حضور غیاب با کیوار کد",
+  "short_name": "حضور غیاب"
+}
