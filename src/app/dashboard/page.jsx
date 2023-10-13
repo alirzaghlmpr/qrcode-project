@@ -21,14 +21,18 @@ const Dashboard = () => {
   
         await qrcodeValidation({
         qrCodeData: JSON.parse(
-          `{"isEntrance":false,"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T18:15:09.936Z","expirationDate":"2023-10-13T18:25:09.936Z"}`
+          `{"isEntrance":false,"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T21:06:46.104Z","expirationDate":"2023-10-13T21:16:46.104Z"}`
         ),
       });
   
   */
   // useEffect(() => {
   //   const fetchData = async () =>
-  //     await getUserHistory("6528fc941908667bec5019cc");
+  //     await qrcodeValidation({
+  //       qrCodeData: JSON.parse(
+  //         `{"isEntrance":false,"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T21:06:46.104Z","expirationDate":"2023-10-13T21:16:46.104Z"}`
+  //       ),
+  //     });
   //   try {
   //     let r = fetchData();
   //     console.log(r);
