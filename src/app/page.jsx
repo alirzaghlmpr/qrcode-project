@@ -14,7 +14,9 @@ import { redirect } from "next/navigation";
 
 const page = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
-  const [userInfos, setUserinfos] = useLocalStorage("infos", null);
+  // const [userInfos, setUserinfos] = useLocalStorage("infos", null);
+  const userInfos = localStorage.getItem("infos");
+  // console.log("userinfos: " + userInfos);
 
   if (userInfos !== null) {
     userInfos.role === "person"

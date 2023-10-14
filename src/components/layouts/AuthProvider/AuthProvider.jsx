@@ -3,12 +3,11 @@
 import React from "react";
 import { redirect } from "next/navigation";
 
-import { useLocalStorage } from "@uidotdev/usehooks";
-
 const AuthProvider = ({ children }) => {
-  const [userInfos, setUserinfos] = useLocalStorage("infos", null);
+  const userInfos = localStorage.getItem("infos");
   if (userInfos)
-    if (new Date(userInfos?.expirationDate) < new Date()) setUserinfos(null);
+    if (new Date(userInfos?.expirationDate) < new Date())
+      localStorage.setItem("infos", null);
 
   if (userInfos === null) {
     redirect("/");
