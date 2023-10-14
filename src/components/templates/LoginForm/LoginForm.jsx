@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QRcodeLogin from "@/assets/qrcode-login.png";
 import Image from "next/image";
 import LoginFormFields from "@/models/LoginFormFields";
@@ -13,17 +13,22 @@ import { redirect } from "next/navigation";
 
 const LoginForm = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
-  // const [userInfos, setUserinfos] = useLocalStorage("infos", null);
-  const userInfos = localStorage.getItem("infos");
-  // console.log("userinfos: " + userInfos);
+  const [userInfos, setUserinfos] = useState(null);
 
-  if (userInfos !== null) {
-    userInfos.role === "person"
-      ? redirect("/dashboard")
-      : userInfos.role === "person"
-      ? redirect("/panel")
-      : redirect("/scanner");
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let userInfos = localStorage.getItem("infos");
+      // console.log("userinfos: " + userInfos);
+
+      if (userInfos !== null) {
+        userInfos.role === "person"
+          ? redirect("/dashboard")
+          : userInfos.role === "person"
+          ? redirect("/panel")
+          : redirect("/scanner");
+      }
+    }
+  }, []);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -43,17 +48,19 @@ const LoginForm = () => {
 
       console.log(info);
 
-      localStorage.setItem(
-        "infos",
-        JSON.stringify({
-          fname: info.person[0].fname,
-          lname: info.person[0].lname,
-          role: info.person[0].role,
-          username: info.person[0].username,
-          personalID: info.person[0]._id,
-          expirationDate: info.expirationDate,
-        })
-      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "infos",
+          JSON.stringify({
+            fname: info.person[0].fname,
+            lname: info.person[0].lname,
+            role: info.person[0].role,
+            username: info.person[0].username,
+            personalID: info.person[0]._id,
+            expirationDate: info.expirationDate,
+          })
+        );
+      }
       Swal.fire({
         toast: "false",
         position: "bottom-end",
