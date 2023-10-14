@@ -7,3 +7,5 @@ authentication using jwt and localstorage
 qrcode ro neshon bede b karbar (handle kardane qrcode generation)
 qrcode ro scan miknoe beferse (qrcode validation)
 user historynpm
+
+redirect after login

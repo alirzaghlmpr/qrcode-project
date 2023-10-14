@@ -13,7 +13,6 @@ import { redirect } from "next/navigation";
 
 const LoginForm = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
-  const [userInfos, setUserinfos] = useState(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -23,7 +22,7 @@ const LoginForm = () => {
       if (userInfos !== null) {
         userInfos.role === "person"
           ? redirect("/dashboard")
-          : userInfos.role === "person"
+          : userInfos.role === "admin"
           ? redirect("/panel")
           : redirect("/scanner");
       }
@@ -70,6 +69,12 @@ const LoginForm = () => {
         timer: 3000,
       });
       setPageStatus(PageStatus.Fetched);
+
+      info.person[0].role === "person"
+        ? redirect("/dashboard")
+        : info.person[0].role === "admin"
+        ? redirect("/panel")
+        : redirect("/scanner");
     } catch (error) {
       console.log(error);
       setPageStatus(PageStatus.Error);

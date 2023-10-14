@@ -12,6 +12,8 @@ import getUserInfo from "@/apis/GetUserInfo";
 import createQRcode from "@/apis/CreateQRcode";
 import qrcodeValidation from "@/apis/QRcodeValidation";
 import getUserHistory from "@/apis/UserHistory";
+import createLeavage from "@/apis/CreateLeavage";
+
 import AuthProvider from "@/components/layouts/AuthProvider";
 
 const Dashboard = () => {
@@ -26,20 +28,21 @@ const Dashboard = () => {
       });
   
   */
-  // useEffect(() => {
-  //   const fetchData = async () =>
-  //     await qrcodeValidation({
-  //       qrCodeData: JSON.parse(
-  //         `{"isEntrance":false,"personId":"6528fc941908667bec5019cc","creationDate":"2023-10-13T21:06:46.104Z","expirationDate":"2023-10-13T21:16:46.104Z"}`
-  //       ),
-  //     });
-  //   try {
-  //     let r = fetchData();
-  //     console.log(r);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () =>
+      await createLeavage("652aabcd1376509309c1ef35", {
+        type: "daily",
+        vacationDate: new Date(),
+        duration: "3",
+        status: "pending",
+      });
+    try {
+      let r = fetchData();
+      console.log(r);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return width < 768 ? (
     <AuthProvider>
