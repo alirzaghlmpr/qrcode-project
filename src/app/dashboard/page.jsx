@@ -13,7 +13,8 @@ import createQRcode from "@/apis/CreateQRcode";
 import qrcodeValidation from "@/apis/QRcodeValidation";
 import getUserHistory from "@/apis/UserHistory";
 import createLeavage from "@/apis/CreateLeavage";
-
+import updateLeavage from "@/apis/PutLeavage";
+import getUserLeavages from "@/apis/GetUserLeavages";
 import AuthProvider from "@/components/layouts/AuthProvider";
 
 const Dashboard = () => {
@@ -30,12 +31,7 @@ const Dashboard = () => {
   */
   useEffect(() => {
     const fetchData = async () =>
-      await createLeavage("652aabcd1376509309c1ef35", {
-        type: "daily",
-        vacationDate: new Date(),
-        duration: "3",
-        status: "pending",
-      });
+      await createQRcode("6528fc941908667bec5019cc", { isEntrance: true });
     try {
       let r = fetchData();
       console.log(r);
