@@ -10,7 +10,7 @@ import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 import getUserHistory from "@/apis/UserHistory";
 import PageStatus from "@/constants/PageStatus";
-
+import Swal from "sweetalert2";
 const TableHistory = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [histories, setHistories] = useState([]);
@@ -32,6 +32,41 @@ const TableHistory = () => {
       console.log(err);
     }
   }, []);
+  const handleHistoryFilter = async (e) => {
+    e.preventDefault();
+    let formsElements = e.target.elements;
+    let year = formsElements.namedItem("year")?.value;
+    let month = formsElements.namedItem("month")?.value;
+
+    month = month === "انتخاب ماه" ? null : month;
+    year = year === "انتخاب سال" ? null : year;
+
+    if (!month && !year) {
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "error",
+        title: `فیلتر سال و ماه باید هردو دارای مقدار باشند`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      return;
+    }
+
+    let persianStartDate = `${year}/${month}/1`;
+    let persianEndDate = `${year}/${month}/30`;
+
+    try {
+      let response = await getUserHistory(
+        JSON.parse(localStorage.getItem("infos")).personalID,
+        `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
+      );
+      let result = await response.json();
+      console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div
@@ -40,10 +75,12 @@ const TableHistory = () => {
           display: "flex",
         }}>
         <form
+          onSubmit={handleHistoryFilter}
           action=""
           className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
           <div>
             <Select
+              name="month"
               id="monthes"
               defaultValue="انتخاب ماه"
               options={Monthes.map(({ name, id, value }) => (
@@ -53,20 +90,10 @@ const TableHistory = () => {
               ))}
             />
           </div>
-          <div>
-            <Select
-              id="days"
-              defaultValue="انتخاب روز"
-              options={daysOfMonth().map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            />
-          </div>
 
           <div>
             <Select
+              name="year"
               id="years"
               defaultValue="انتخاب سال"
               options={lastNyears(1402, 10).map((item) => (
