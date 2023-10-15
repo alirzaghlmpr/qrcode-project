@@ -8,6 +8,7 @@ import createQRcode from "@/apis/CreateQRcode";
 import Image from "next/image";
 import PageStatus from "@/constants/PageStatus";
 import Swal from "sweetalert2";
+
 const QRcodeGenerator = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
 
@@ -25,7 +26,7 @@ const QRcodeGenerator = () => {
         toast: "false",
         position: "bottom-end",
         icon: "success",
-        title: `با موفقیت ایجاد شد`,
+        title: `کد ورود با موفقیت ایجاد شد`,
         showConfirmButton: false,
         timer: 2000,
       });
@@ -57,7 +58,7 @@ const QRcodeGenerator = () => {
         toast: "false",
         position: "bottom-end",
         icon: "success",
-        title: `با موفقیت ایجاد شد`,
+        title: `کد خروج با موفقیت ایجاد شد`,
         showConfirmButton: false,
         timer: 2000,
       });
@@ -80,7 +81,9 @@ const QRcodeGenerator = () => {
   return (
     <>
       <div className="flex items-center justify-center w-[60%] h-[60%] bg-white border-dotted border-2">
-        {qrCodeUrl ? (
+        {qrCodeUrl && pageStatus === PageStatus.Loading ? (
+          <p>درحال ایجاد</p>
+        ) : pageStatus === PageStatus.Fetched ? (
           <Image
             src={qrCodeUrl}
             alt="qrcode sample"
