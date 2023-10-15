@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Monthes from "@/constants/Monthes";
 import daysOfMonth from "@/utils/daysOfMonth";
 import lastNyears from "@/utils/lastNyears";
@@ -8,8 +9,29 @@ import Table from "@/components/shared/Table";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 import TextField from "@/components/shared/TextField";
-
+import PageStatus from "@/constants/PageStatus";
+import getHistory from "@/apis/GetHistory";
 const TableHistoryAdmin = () => {
+  const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+  const [histories, setHistories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setPageStatus(PageStatus.Loading);
+
+      let response = await getHistory();
+      let result = await response.json();
+      setHistories(result.qrcodes);
+      setPageStatus(PageStatus.Fetched);
+    };
+
+    try {
+      fetchData();
+    } catch (err) {
+      setPageStatus(PageStatus.Error);
+      console.log(err);
+    }
+  }, []);
   return (
     <>
       <div
@@ -89,10 +111,15 @@ const TableHistoryAdmin = () => {
       <div
         className="flex gap-5 flex-col w-[100%] relative p-5 costume-scroll"
         style={{ direction: "rtl" }}>
-        <Table
-          header={TableHistoryHeadersAdmin}
-          datas={AdminHistoryTableFakeData}
-        />
+        {pageStatus === PageStatus.Loading ? (
+          <p>درحال بارگذاری...</p>
+        ) : (
+          <Table
+            isAdmin={true}
+            header={TableHistoryHeadersAdmin}
+            datas={histories}
+          />
+        )}
       </div>
     </>
   );

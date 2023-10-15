@@ -1,23 +1,37 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Monthes from "@/constants/Monthes";
-import SearchParams from "@/models/SearchParams";
 import lastNyears from "@/utils/lastNyears";
-import getSearchParams from "@/utils/getSearchParams";
 import daysOfMonth from "@/utils/daysOfMonth";
-import { useSearchParams } from "next/navigation";
 import TableHistoryHeadersUser from "@/constants/TableHistoryHeadersUser";
 import Table from "@/components/shared/Table";
 import UserHistoryTableFakeData from "@/mocks/UserHistoryTableFakeData";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
+import getUserHistory from "@/apis/UserHistory";
+import PageStatus from "@/constants/PageStatus";
 
 const TableHistory = () => {
-  const searchParams = useSearchParams();
+  const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+  const [histories, setHistories] = useState([]);
 
-  const params = getSearchParams(searchParams, SearchParams);
-  console.log(params);
+  useEffect(() => {
+    const fetchData = async (personalID) => {
+      setPageStatus(PageStatus.Loading);
 
+      let response = await getUserHistory(personalID);
+      let result = await response.json();
+      setHistories(result.qrcodes);
+      setPageStatus(PageStatus.Fetched);
+    };
+
+    try {
+      fetchData(JSON.parse(localStorage.getItem("infos")).personalID);
+    } catch (err) {
+      setPageStatus(PageStatus.Error);
+      console.log(err);
+    }
+  }, []);
   return (
     <>
       <div
@@ -75,10 +89,11 @@ const TableHistory = () => {
       <div
         className="flex gap-5 flex-col w-[100%] relative p-5 costume-scroll"
         style={{ direction: "rtl" }}>
-        <Table
-          header={TableHistoryHeadersUser}
-          datas={UserHistoryTableFakeData}
-        />
+        {pageStatus === PageStatus.Loading ? (
+          <p>درحال بارگذاری...</p>
+        ) : (
+          <Table header={TableHistoryHeadersUser} datas={histories} />
+        )}
       </div>
     </>
   );

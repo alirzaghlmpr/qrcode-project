@@ -1,7 +1,8 @@
 import React from "react";
-import createTableTdFromObject from "@/utils/createTableTdFromObject";
-
-const Table = ({ header, datas }) => {
+import { DateObject } from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+const Table = ({ header, datas, isAdmin }) => {
   return (
     <table
       style={{ direction: "rtl" }}
@@ -23,7 +24,41 @@ const Table = ({ header, datas }) => {
               i % 2 === 0 ? "bg-indigo-200" : ""
             }`}>
             <td className="whitespace-nowrap px-6 py-4 font-medium">{i}</td>
-            {createTableTdFromObject(data, "whitespace-nowrap px-6 py-4")}
+            <td>
+              {new DateObject(data?.entranceDate)
+                .convert(persian, persian_fa)
+                .format()}
+            </td>
+            {isAdmin && (
+              <>
+                <td>{data?.person?.fname + " " + data?.person?.lname}</td>
+                <td>{data?.person?.username}</td>
+              </>
+            )}
+            <td>{`${new DateObject(data?.entranceDate)
+              .convert(persian, persian_fa)
+              .hour.toString()
+              .padStart(2, "0")}:${new DateObject(data?.entranceDate)
+              .convert(persian, persian_fa)
+              .minute.toString()
+              .padStart(2, "0")}`}</td>
+            <td>{`${new DateObject(data?.exitDate)
+              .convert(persian, persian_fa)
+              .hour.toString()
+              .padStart(2, "0")}:${new DateObject(data?.exitDate)
+              .convert(persian, persian_fa)
+              .minute.toString()
+              .padStart(2, "0")}`}</td>
+            <td>{`${new DateObject(data?.workDuration)
+              .convert(persian, persian_fa)
+              .hour.toString()
+              .padStart(2, "0")}:${new DateObject(data?.workDuration)
+              .convert(persian, persian_fa)
+              .minute.toString()
+              .padStart(2, "0")}:${new DateObject(data?.workDuration)
+              .convert(persian, persian_fa)
+              .second.toString()
+              .padStart(2, "0")}`}</td>
           </tr>
         ))}
       </tbody>
