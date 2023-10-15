@@ -21,18 +21,18 @@ const Scanner = () => {
       disableFlip: true,
     });
 
-    const success = (decodedText, decodedResult) => {
+    const success = async(decodedText, decodedResult) => {
       const data = JSON.parse(decodedText);
 
       const date = new DateObject({ calendar: persian, locale: persian_fa });
       console.log(date.format());
       console.log(`${date.hour}:${date.minute}:${date.second}`);
-
+      console.log(data);
       Swal.fire({
         position: "center",
         icon: "success",
-        title: `${data.name} , ${data.role} , ${data.pID}`,
-        text: `${date.hour}:${date.minute}:${date.second} , ${date.format()}`,
+        // title: `${data.name} , ${data.role} , ${data.pID}`,
+        // text: `${date.hour}:${date.minute}:${date.second} , ${date.format()}`,
         showConfirmButton: false,
         timer: modalDelayTimeMiliSec,
       });
@@ -63,7 +63,7 @@ const Scanner = () => {
       <div className="w-[48%] h-[600px] overflow-y-scroll flex flex-col items-start px-10 costume-scroll">
         <p>لیست افراد اسکن شده({scannedInfo.length} نفر):</p>
         <ol className="list-decimal">
-          {scannedInfo.map((item) => (
+          {/* {scannedInfo.map((item) => (
             <li className="my-3" key={item.pID}>
               <span> نام : </span>
               <span>{item.name}</span>
@@ -82,7 +82,7 @@ const Scanner = () => {
                 {item.hour}:{item.minute}:{item.sec}
               </span>
             </li>
-          ))}
+          ))} */}
         </ol>
       </div>
       <div className="w-[48%] flex flex-col items-center justify-center gap-4">

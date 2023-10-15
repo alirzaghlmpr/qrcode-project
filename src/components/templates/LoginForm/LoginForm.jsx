@@ -17,7 +17,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       let userInfos = JSON.parse(localStorage.getItem("infos"));
-      console.log("userinfos: " + userInfos.fname + userInfos.role);
+      console.log("userinfos: " + userInfos?.fname + userInfos?.role);
 
       if (userInfos !== null) {
         userInfos.role === "person"
