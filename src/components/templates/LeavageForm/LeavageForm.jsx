@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -13,13 +13,47 @@ import LeavageStatus from "@/models/LeavageStatus";
 import LeavageType from "@/models/LeavageType";
 import PageStatus from "@/constants/PageStatus";
 import Swal from "sweetalert2";
-
+import getUserLeavages from "@/apis/GetUserLeavages";
 const LeavageForm = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+  const [leavages, setLeavages] = useState([]);
 
   const [leavageDate, setLeavageDate] = useState(
     new DateObject({ calendar: persian, locale: persian_fa })
   );
+
+  useEffect(() => {
+    const fetchData = async (personalID) => {
+      setPageStatus(PageStatus.Loading);
+
+      let response = await getUserLeavages(personalID);
+      let result = await response.json();
+      setLeavages(result.vacations.reverse());
+      setPageStatus(PageStatus.Fetched);
+    };
+
+    try {
+      fetchData(JSON.parse(localStorage.getItem("infos")).personalID);
+    } catch (err) {
+      setPageStatus(PageStatus.Error);
+      console.log(err);
+    }
+  }, []);
+
+  const updateLeavages = async () => {
+    try {
+      setPageStatus(PageStatus.Loading);
+      let response = await getUserLeavages(
+        JSON.parse(localStorage.getItem("infos")).personalID
+      );
+      let result = await response.json();
+      setLeavages(result.vacations.reverse());
+      setPageStatus(PageStatus.Fetched);
+    } catch (err) {
+      console.log(err);
+      setPageStatus(PageStatus.Error);
+    }
+  };
 
   const handleLeavageCreation = async (e) => {
     let personalID = JSON.parse(localStorage.getItem("infos")).personalID;
@@ -55,6 +89,7 @@ const LeavageForm = () => {
       });
       e.target.reset();
       setPageStatus(PageStatus.Fetched);
+      await updateLeavages();
     } catch (err) {
       Swal.fire({
         toast: "false",
@@ -124,267 +159,50 @@ const LeavageForm = () => {
       <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[165px] md:h-[400px] overflow-y-scroll costume-scroll">
         <p>درخواست های مرخصی شما</p>
         <hr />
+
         <ol className="list-decimal px-8">
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-lime-500 font-bold">تایید شده</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-amber-500 font-bold">در حال بررسی</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-lime-500 font-bold">تایید شده</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-lime-500 font-bold">تایید شده</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-amber-500 font-bold">در حال بررسی</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>{" "}
-          <li className="text-sm my-2">
-            <span>نوع مرخصی : </span>
-            <span>ساعتی</span>
-            <span> ، </span>
-            <span>تاریخ : </span>
-            <span>1402/10/12</span>
-            <span> ، </span>
-            <span>مدت : </span>
-            <span>2 ساعت</span>
-            <span> ، </span>
-            <span>وضعیت : </span>
-            <span className="text-red-700 font-bold">رد شده</span>
-          </li>
+          {pageStatus === PageStatus.Loading ? (
+            <p> درحال بارگذاری ... </p>
+          ) : (
+            leavages.map(({ _id, type, duration, status, vacationDate }) => {
+              return (
+                <li key={_id} className="text-sm my-2">
+                  <span>نوع مرخصی : </span>
+                  <span>{type === LeavageType.Daily ? "روزانه" : "ساعتی"}</span>
+                  <span> ، </span>
+                  <span>تاریخ : </span>
+                  <span>
+                    {new DateObject(vacationDate)
+                      .convert(persian, persian_fa)
+                      .format()}
+                  </span>
+                  <span> ، </span>
+                  <span>مدت : </span>
+                  <span>{`${duration} ${
+                    type === LeavageType.Daily ? "روز" : "ساعت"
+                  }`}</span>
+                  <span> ، </span>
+                  <span>وضعیت : </span>
+                  <span
+                    className={`font-bold ${
+                      status === LeavageStatus.Accepted
+                        ? "text-lime-500"
+                        : status === LeavageStatus.Rejected
+                        ? "text-red-700"
+                        : "text-amber-500"
+                    }`}>
+                    {`${
+                      status === LeavageStatus.Accepted
+                        ? "تایید شده"
+                        : status === LeavageStatus.Rejected
+                        ? "رد شده"
+                        : "در حال بررسی"
+                    }`}
+                  </span>
+                </li>
+              );
+            })
+          )}
         </ol>
       </div>
     </div>
