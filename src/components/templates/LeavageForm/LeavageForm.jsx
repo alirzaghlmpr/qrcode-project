@@ -4,41 +4,88 @@ import React, { useState } from "react";
 import { Calendar, DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_en from "react-date-object/locales/gregorian_en";
 import "react-multi-date-picker/styles/colors/purple.css";
 import Button from "@/components/shared/Button";
+import createLeavage from "@/apis/CreateLeavage";
+import LeavageStatus from "@/models/LeavageStatus";
+import LeavageType from "@/models/LeavageType";
+import PageStatus from "@/constants/PageStatus";
+import Swal from "sweetalert2";
 
 const LeavageForm = () => {
+  const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+
   const [leavageDate, setLeavageDate] = useState(
     new DateObject({ calendar: persian, locale: persian_fa })
   );
+
+  const handleLeavageCreation = async (e) => {
+    let personalID = JSON.parse(localStorage.getItem("infos")).personalID;
+    try {
+      setPageStatus(PageStatus.Loading);
+
+      e.preventDefault();
+      let formsElements = e.target.elements;
+      let type = formsElements.namedItem("type")?.value;
+      let duration = formsElements.namedItem("duration")?.value;
+
+      if (type === "") throw new Error("نوع باید مشخص باشد");
+
+      let convertedDate = new Date(
+        leavageDate.convert(gregorian, gregorian_en).format()
+      ).toISOString();
+
+      let response = await createLeavage(personalID, {
+        type: type,
+        duration: duration,
+        status: LeavageStatus.Pending,
+        vacationDate: convertedDate,
+      });
+
+      let result = await response.json();
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "success",
+        title: `درخواست مرخصی شما با موفقیت ثبت شد`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      e.target.reset();
+      setPageStatus(PageStatus.Fetched);
+    } catch (err) {
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "error",
+        title: `(تمامی فیلد ها باید تکمیل شوند)ثبت درخواست با مشکل مواجه شد`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      console.log(err);
+      setPageStatus(PageStatus.Error);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
       <div className="bg-slate-50 flex flex-col gap-6 p-4 h-[265px] md:h-[400px] overflow-y-scroll costume-scroll ">
         <p>فرم درخواست مرخصی</p>
         <hr />
-        <form action="">
+        <form onSubmit={handleLeavageCreation} action="">
           <span>نوع مرخصی : </span>
           <div className="my-3 flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <input
-                id="default-radio-1"
-                type="radio"
-                name="leavage-type"
-                className=""
-              />
-              <label for="default-radio-1" className="text-sm">
+              <input value={LeavageType.Daily} type="radio" name="type" />
+              <label htmlFor="default-radio-1" className="text-sm">
                 روزانه
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <input
-                id="default-radio-2"
-                type="radio"
-                value=""
-                name="leavage-type"
-                className=""
-              />
-              <label for="default-radio-2" className="text-sm">
+              <input type="radio" value={LeavageType.Hourly} name="type" />
+              <label htmlFor="default-radio-2" className="text-sm">
                 ساعتی
               </label>
             </div>
@@ -62,12 +109,15 @@ const LeavageForm = () => {
               type="number"
               min="1"
               defaultValue="1"
+              name="duration"
             />
             <span>روز/ساعت</span>
           </div>
 
           <Button extraClasses="w-[100%] mt-2" type="submit">
-            ثبت درخواست
+            {pageStatus === PageStatus.Loading
+              ? "درحال ثبت درخواست..."
+              : "ثبت درخواست"}
           </Button>
         </form>
       </div>
