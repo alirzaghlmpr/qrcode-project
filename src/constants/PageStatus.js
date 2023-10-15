@@ -4,3 +4,5 @@ export const PageStatus = Object.freeze({
   Fetched: "Fetched",
   Error: "error",
 });
+
+export default PageStatus;

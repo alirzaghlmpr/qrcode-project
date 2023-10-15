@@ -1,10 +1,15 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Button from "@/components/shared/Button";
 import TextField from "@/components/shared/TextField";
 import AddUserFormFields from "@/models/AddUserFormFields";
 import insertUser from "@/apis/InsertUser";
+import Swal from "sweetalert2";
+import PageStatus from "@/constants/PageStatus";
 
 const AddUserForm = () => {
+  const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     let formsElements = e.target.elements;
@@ -15,13 +20,36 @@ const AddUserForm = () => {
       AddUserFormFields?.Password?.title
     )?.value;
 
-    let response = await insertUser({
-      fname: fname,
-      lname: lname,
-      role: role,
-      password: password,
-    });
-    console.log(response);
+    try {
+      setPageStatus(PageStatus.Loading);
+      let response = await insertUser({
+        fname: fname,
+        lname: lname,
+        role: role,
+        password: password,
+      });
+      e.target.reset();
+      let data = await response.json();
+      Swal.fire({
+        title: "با موفقیت ساخته شد!",
+        icon: "success",
+        html: "کد پرسنلی : " + `${data.person.username}`,
+        confirmButtonText: "بستن",
+      });
+      console.log(data);
+      setPageStatus(PageStatus.Fetched);
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "error",
+        title: `اطلاعات تکراری یا فیلد خالی`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      setPageStatus(PageStatus.Error);
+    }
   };
 
   return (
@@ -59,7 +87,11 @@ const AddUserForm = () => {
           placeholder={AddUserFormFields?.Password?.placeholder}
           className="border-2 border-indigo-950 focus:border-indigo-600 p-2 rounded-lg"
         />
-        <Button type="submit">ثبت اطلاعات</Button>
+        <Button disabled={pageStatus === PageStatus.Loading} type="submit">
+          {pageStatus === PageStatus.Loading
+            ? "درحال ثبت اطلاعات..."
+            : "ثبت اطلاعات"}
+        </Button>
       </form>
     </div>
   );

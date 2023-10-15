@@ -29,16 +29,16 @@ const Dashboard = () => {
       });
   
   */
-  useEffect(() => {
-    const fetchData = async () =>
-      await createQRcode("6528fc941908667bec5019cc", { isEntrance: true });
-    try {
-      let r = fetchData();
-      console.log(r);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () =>
+  //     await createQRcode("6528fc941908667bec5019cc", { isEntrance: true });
+  //   try {
+  //     let r = fetchData();
+  //     console.log(r);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   return width < 768 ? (
     <AuthProvider>

@@ -7,24 +7,24 @@ import LoginFormFields from "@/models/LoginFormFields";
 import TextField from "@/components/shared/TextField";
 import Button from "@/components/shared/Button";
 import signIn from "@/apis/Login";
-import { PageStatus } from "@/constants/PageStatus";
+import PageStatus from "@/constants/PageStatus";
 import Swal from "sweetalert2";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
-
+  const router = useRouter();
   useEffect(() => {
     if (typeof window !== "undefined") {
-      let userInfos = localStorage.getItem("infos");
-      console.log("userinfos: " + userInfos);
+      let userInfos = JSON.parse(localStorage.getItem("infos"));
+      console.log("userinfos: " + userInfos.fname + userInfos.role);
 
       if (userInfos !== null) {
         userInfos.role === "person"
-          ? redirect("/dashboard")
+          ? router.push("/dashboard")
           : userInfos.role === "admin"
-          ? redirect("/panel")
-          : redirect("/scanner");
+          ? router.push("/panel")
+          : router.push("/scanner");
       }
     }
   }, []);
@@ -60,6 +60,7 @@ const LoginForm = () => {
           })
         );
       }
+
       Swal.fire({
         toast: "false",
         position: "bottom-end",
@@ -71,10 +72,10 @@ const LoginForm = () => {
       setPageStatus(PageStatus.Fetched);
 
       info.person[0].role === "person"
-        ? redirect("/dashboard")
+        ? router.push("/dashboard")
         : info.person[0].role === "admin"
-        ? redirect("/panel")
-        : redirect("/scanner");
+        ? router.push("/panel")
+        : router.push("/scanner");
     } catch (error) {
       console.log(error);
       setPageStatus(PageStatus.Error);

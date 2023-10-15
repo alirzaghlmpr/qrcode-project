@@ -16,10 +16,10 @@ const QRcodeGenerator = () => {
           className="w-[100%] h-[100%]"
         /> */}
         <p className="p-3 text-center">
-          <span> برای ایجاد کیوار کد ، روی دکمه </span>
+          <span> برای ایجاد QRcode ، روی دکمه </span>
           <br />
           <span>
-            <strong>ایجاد کیوار کد </strong>
+            <strong>ایجاد QRcode </strong>
           </span>
           <br />
           <span>کلیک کنید </span>
@@ -27,7 +27,7 @@ const QRcodeGenerator = () => {
       </div>
       <Button extraClasses="mt-4 w-[60%]">
         <p className="flex justify-between">
-          <span>ایجاد کیوار برای ورود</span>
+          <span>ایجاد QRcode برای ورود</span>
           <span>
             <LoginIcon />
           </span>
@@ -35,7 +35,7 @@ const QRcodeGenerator = () => {
       </Button>
       <Button className="bg-indigo-500 text-slate-50 rounded-lg p-2 mt-4 w-[60%]">
         <p className="flex justify-between">
-          <span>ایجاد کیوار برای خروج</span>
+          <span>ایجاد QRcode برای خروج</span>
           <span>
             <LogoutIcon />
           </span>
