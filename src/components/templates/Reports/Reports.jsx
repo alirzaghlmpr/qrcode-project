@@ -1,11 +1,34 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Monthes from "@/constants/Monthes";
 import lastNyears from "@/utils/lastNyears";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
+import getUserReports from "@/apis/GetUserReports";
+import PageStatus from "@/constants/PageStatus";
 
 const Reports = () => {
+  const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+  const [reports, setReports] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async (personalID) => {
+      setPageStatus(PageStatus.Loading);
+
+      let response = await getUserReports(personalID);
+      let result = await response.json();
+      console.log(result);
+      setPageStatus(PageStatus.Fetched);
+    };
+
+    try {
+      fetchData(JSON.parse(localStorage.getItem("infos")).personalID);
+    } catch (err) {
+      setPageStatus(PageStatus.Error);
+      console.log(err);
+    }
+  }, []);
+
   return (
     <>
       <form action="" className="flex justify-start gap-5 items-center">
