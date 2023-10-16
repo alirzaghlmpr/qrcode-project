@@ -1,11 +1,40 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Monthes from "@/constants/Monthes";
 import lastNyears from "@/utils/lastNyears";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 import TextField from "@/components/shared/TextField";
+import PageStatus from "@/constants/PageStatus";
+
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { DateObject } from "react-multi-date-picker";
+import getReports from "@/apis/GetReports";
 
 const ReportsAdmin = () => {
+  const [values, setValues] = useState([new DateObject()]);
+  const [pageStatus, setPageStatus] = useState(PageStatus.Init);
+  const [reports, setReports] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setPageStatus(PageStatus.Loading);
+
+      let response = await getReports();
+      let result = await response.json();
+      console.log(result);
+      setPageStatus(PageStatus.Fetched);
+    };
+
+    try {
+      fetchData();
+    } catch (err) {
+      setPageStatus(PageStatus.Error);
+      console.log(err);
+    }
+  }, []);
   return (
     <>
       <form
@@ -39,26 +68,32 @@ const ReportsAdmin = () => {
           <TextField
             name="searchQuery"
             id="search-query"
-            placeholder="جست و جو..."
+            placeholder="جست و جو کد پرسنلی..."
             className="w-[100%] text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
           />
         </div>
+
         <div className="w-[100%] md:w-auto">
-          <Select
-            extraClasses="w-[100%]"
-            id="query-type"
-            defaultValue="جست و جو بر اساس"
-            options={[
-              <option key={"نام"} value="name">
-                نام
-              </option>,
-              <option key={"کد پرسنلی"} value="pCode">
-                کد پرسنلی
-              </option>,
-            ]}
+          <Button
+            type="submit"
+            className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50 w-[100%]">
+            اعمال فیلتر
+          </Button>
+        </div>
+      </form>
+      <form
+        action=""
+        className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
+        <div style={{ direction: "rtl" }}>
+          <p>انتخاب محدوده:</p>
+          <DatePicker
+            calendar={persian}
+            locale={persian_fa}
+            value={values}
+            onChange={setValues}
+            range
           />
         </div>
-
         <div className="w-[100%] md:w-auto">
           <Button
             type="submit"

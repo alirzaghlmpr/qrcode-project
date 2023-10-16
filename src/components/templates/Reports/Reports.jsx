@@ -6,10 +6,15 @@ import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 import getUserReports from "@/apis/GetUserReports";
 import PageStatus from "@/constants/PageStatus";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { DateObject } from "react-multi-date-picker";
 
 const Reports = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [reports, setReports] = useState([]);
+  const [values, setValues] = useState([new DateObject()]);
 
   useEffect(() => {
     const fetchData = async (personalID) => {
@@ -60,6 +65,27 @@ const Reports = () => {
           <Button
             className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50"
             type="submit">
+            اعمال فیلتر
+          </Button>
+        </div>
+      </form>
+      <form
+        action=""
+        className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
+        <div style={{ direction: "rtl" }}>
+          <p>انتخاب محدوده:</p>
+          <DatePicker
+            calendar={persian}
+            locale={persian_fa}
+            value={values}
+            onChange={setValues}
+            range
+          />
+        </div>
+        <div className="w-[100%] md:w-auto">
+          <Button
+            type="submit"
+            className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50 w-[100%]">
             اعمال فیلتر
           </Button>
         </div>

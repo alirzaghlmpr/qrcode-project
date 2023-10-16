@@ -11,9 +11,15 @@ import Select from "@/components/shared/Select";
 import getUserHistory from "@/apis/UserHistory";
 import PageStatus from "@/constants/PageStatus";
 import Swal from "sweetalert2";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import { DateObject } from "react-multi-date-picker";
+
 const TableHistory = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [histories, setHistories] = useState([]);
+  const [values, setValues] = useState([new DateObject()]);
 
   useEffect(() => {
     const fetchData = async (personalID) => {
@@ -76,6 +82,8 @@ const TableHistory = () => {
         style={{
           direction: "rtl",
           display: "flex",
+          flexDirection: "column",
+          gap: "10px",
         }}>
         <form
           onSubmit={handleHistoryFilter}
@@ -107,6 +115,27 @@ const TableHistory = () => {
             />
           </div>
 
+          <div className="w-[100%] md:w-auto">
+            <Button
+              type="submit"
+              className="bg-indigo-950 text-xs px-3 py-2 rounded-lg text-slate-50 w-[100%]">
+              اعمال فیلتر
+            </Button>
+          </div>
+        </form>
+        <form
+          action=""
+          className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
+          <div style={{ direction: "rtl" }}>
+            <p>انتخاب محدوده:</p>
+            <DatePicker
+              calendar={persian}
+              locale={persian_fa}
+              value={values}
+              onChange={setValues}
+              range
+            />
+          </div>
           <div className="w-[100%] md:w-auto">
             <Button
               type="submit"
