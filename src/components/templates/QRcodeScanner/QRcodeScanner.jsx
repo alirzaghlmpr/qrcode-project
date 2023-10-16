@@ -69,6 +69,10 @@ const QRcodeScanner = () => {
           timer: modalDelayTimeMiliSec,
         });
       }
+      scanner.pause();
+      setTimeout(() => {
+        scanner.resume();
+      }, 2000);
     };
     const error = (error) => {
       console.log(error);

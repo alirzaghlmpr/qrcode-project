@@ -49,16 +49,18 @@ const Table = ({ header, datas, isAdmin }) => {
               .convert(persian, persian_fa)
               .minute.toString()
               .padStart(2, "0")}`}</td>
-            <td>{`${new DateObject(data?.workDuration)
-              .convert(persian, persian_fa)
-              .hour.toString()
-              .padStart(2, "0")}:${new DateObject(data?.workDuration)
-              .convert(persian, persian_fa)
-              .minute.toString()
-              .padStart(2, "0")}:${new DateObject(data?.workDuration)
-              .convert(persian, persian_fa)
-              .second.toString()
-              .padStart(2, "0")}`}</td>
+            <td>
+              {data?.exitDate &&
+                new Date(
+                  Math.abs(
+                    new Date(data?.entranceDate).getTime() -
+                      new Date(data?.exitDate).getTime()
+                  )
+                )
+                  .toISOString()
+                  .slice(11, 19)}
+              {console.log("asdlkasjdkl")}
+            </td>
           </tr>
         ))}
       </tbody>
