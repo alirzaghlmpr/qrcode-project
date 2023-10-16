@@ -57,14 +57,17 @@ const TableHistory = () => {
     let persianEndDate = `${year}/${month}/30`;
 
     try {
+      setPageStatus(PageStatus.Loading);
       let response = await getUserHistory(
         JSON.parse(localStorage.getItem("infos")).personalID,
         `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
       );
       let result = await response.json();
-      console.log(result);
+      setHistories(result.qrcodes);
+      setPageStatus(PageStatus.Fetched);
     } catch (err) {
       console.log(err);
+      setPageStatus(PageStatus.Error);
     }
   };
   return (
@@ -118,8 +121,10 @@ const TableHistory = () => {
         style={{ direction: "rtl" }}>
         {pageStatus === PageStatus.Loading ? (
           <p>درحال بارگذاری...</p>
-        ) : (
+        ) : histories.length > 0 ? (
           <Table header={TableHistoryHeadersUser} datas={histories} />
+        ) : (
+          <p>رکوردی یافت نشد</p>
         )}
       </div>
     </>

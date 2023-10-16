@@ -11,6 +11,8 @@ import Select from "@/components/shared/Select";
 import TextField from "@/components/shared/TextField";
 import PageStatus from "@/constants/PageStatus";
 import getHistory from "@/apis/GetHistory";
+import Swal from "sweetalert2";
+
 const TableHistoryAdmin = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [histories, setHistories] = useState([]);
@@ -32,6 +34,47 @@ const TableHistoryAdmin = () => {
       console.log(err);
     }
   }, []);
+
+  const handleHistoryFilter = async (e) => {
+    e.preventDefault();
+    let formsElements = e.target.elements;
+    let year = formsElements.namedItem("year")?.value;
+    let month = formsElements.namedItem("month")?.value;
+    let query = formsElements.namedItem("searchQuery")?.value;
+
+    month = month === "انتخاب ماه" ? null : month;
+    year = year === "انتخاب سال" ? null : year;
+    query = query === "" ? null : query;
+
+    if (!month && !year) {
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "error",
+        title: `فیلتر سال و ماه باید هردو دارای مقدار باشند`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      return;
+    }
+
+    let persianStartDate = `${year}/${month}/1`;
+    let persianEndDate = `${year}/${month}/30`;
+
+    try {
+      setPageStatus(PageStatus.Loading);
+      let response = await getHistory(
+        `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
+      );
+      let result = await response.json();
+      setHistories(result.qrcodes);
+      setPageStatus(PageStatus.Fetched);
+    } catch (err) {
+      console.log(err);
+      setPageStatus(PageStatus.Error);
+    }
+  };
+
   return (
     <>
       <div
@@ -41,9 +84,11 @@ const TableHistoryAdmin = () => {
         }}>
         <form
           action=""
+          onSubmit={handleHistoryFilter}
           className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
           <div>
             <Select
+              name="month"
               id="monthes"
               defaultValue="انتخاب ماه"
               options={Monthes.map(({ name, id, value }) => (
@@ -53,21 +98,11 @@ const TableHistoryAdmin = () => {
               ))}
             />
           </div>
-          <div>
-            <Select
-              id="days"
-              defaultValue="انتخاب روز"
-              options={daysOfMonth().map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            />
-          </div>
 
           <div>
             <Select
               id="years"
+              name="year"
               defaultValue="انتخاب سال"
               options={lastNyears(1402, 10).map((item) => (
                 <option key={item} value={item}>
@@ -80,22 +115,8 @@ const TableHistoryAdmin = () => {
             <TextField
               name="searchQuery"
               id="search-query"
-              placeholder="جست و جو..."
+              placeholder="جست و جوی کد پرسنلی"
               className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
-            />
-          </div>
-          <div>
-            <Select
-              id="query-type"
-              defaultValue="جست و جو بر اساس"
-              options={[
-                <option key={"نام"} value="name">
-                  نام
-                </option>,
-                <option key={"کد پرسنلی"} value="pCode">
-                  کد پرسنلی
-                </option>,
-              ]}
             />
           </div>
 
@@ -113,12 +134,14 @@ const TableHistoryAdmin = () => {
         style={{ direction: "rtl" }}>
         {pageStatus === PageStatus.Loading ? (
           <p>درحال بارگذاری...</p>
-        ) : (
+        ) : histories.length > 0 ? (
           <Table
             isAdmin={true}
             header={TableHistoryHeadersAdmin}
             datas={histories}
           />
+        ) : (
+          <p>رکوردی یافت نشد</p>
         )}
       </div>
     </>
