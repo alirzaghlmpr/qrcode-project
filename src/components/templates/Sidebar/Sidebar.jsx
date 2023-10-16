@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Avatar from "@/assets/userAvatar.webp";
 import Image from "next/image";
@@ -6,16 +7,16 @@ import { usePathname } from "next/navigation";
 
 const Sidebar = ({ navItems }) => {
   let path = usePathname();
+  const { fname, lname, username } = JSON.parse(localStorage.getItem("infos"));
   return (
     <div className="flex flex-col bg-indigo-950 w-64 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l">
       <Image src={Avatar} alt="user profile" width="50" className="mx-auto" />
 
       <div className="flex flex-col items-center mx-2">
-        <h4 className="mx-2 mt-2 font-medium text-slate-200">علیرضا غلامپور</h4>
+        <h4 className="mx-2 mt-2 font-medium text-slate-200">{`${fname} ${lname}`}</h4>
         <p className="mx-2 mt-1 text-sm font-medium text-slate-300 d">
-          3981231076
+          {username}
         </p>
-        <p className="mx-2 mt-1 text-sm font-medium text-slate-400 d">کارمند</p>
       </div>
 
       <div className="flex flex-col justify-between flex-1 mt-6">
