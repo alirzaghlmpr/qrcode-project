@@ -16,28 +16,29 @@ import { DateObject } from "react-multi-date-picker";
 import getReports from "@/apis/GetReports";
 import Swal from "sweetalert2";
 import removeZeros from "@/utils/removeZeros";
+import getHistory from "@/apis/GetHistory";
+
 const ReportsAdmin = () => {
   const [values, setValues] = useState([new DateObject()]);
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
-  const [reports, setReports] = useState([]);
+  const [reports, setReports] = useState(null);
+  const [histories, setHistories] = useState([]);
+  const [totalHours, setTotalHours] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setPageStatus(PageStatus.Loading);
+    if (histories.length > 0) {
+      let sum = 0;
+      histories.map((object) => {
+        if (object?.exitDate) {
+          sum += Math.abs(
+            new Date(object.entranceDate) - new Date(object.exitDate)
+          );
+        }
+      });
 
-      let response = await getReports();
-      let result = await response.json();
-      console.log(result);
-      setPageStatus(PageStatus.Fetched);
-    };
-
-    try {
-      fetchData();
-    } catch (err) {
-      setPageStatus(PageStatus.Error);
-      console.log(err);
+      setTotalHours(new Date(sum).toISOString().slice(11, 19));
     }
-  }, []);
+  }, [histories]);
 
   const handleReportFilter = async (e) => {
     e.preventDefault();
@@ -55,7 +56,7 @@ const ReportsAdmin = () => {
         toast: "false",
         position: "bottom-end",
         icon: "error",
-        title: `فیلتر سال و ماه باید هردو دارای مقدار باشند`,
+        title: `فیلتر سال و ماه و کدپرسنلی باید هرسه دارای مقدار باشند`,
         showConfirmButton: false,
         timer: 3000,
       });
@@ -73,7 +74,14 @@ const ReportsAdmin = () => {
         }`
       );
       let result = await response.json();
-      setReports(result.qrcodes);
+      let response2 = await getHistory(
+        `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}${
+          query ? `&username=${query}` : ""
+        }`
+      );
+      let result2 = await response2.json();
+      setReports(result);
+      setHistories(result2.qrcodes);
       setPageStatus(PageStatus.Fetched);
     } catch (err) {
       console.log(err);
@@ -83,8 +91,10 @@ const ReportsAdmin = () => {
 
   const handleReportFilterRange = async (e) => {
     e.preventDefault();
+    let query = e.target.elements.namedItem("searchQuery")?.value;
+    query = query === "" ? null : query;
 
-    if (values[0] && values[1]) {
+    if (values[0] && values[1] && query) {
       let persianStartDate = values[0]
         .convert(persian, persian_en)
         .format()
@@ -95,8 +105,6 @@ const ReportsAdmin = () => {
         .format()
         .toString();
       persianEndDate = removeZeros(persianEndDate);
-      let query = e.target.elements.namedItem("searchQuery")?.value;
-      query = query === "" ? null : query;
 
       try {
         setPageStatus(PageStatus.Loading);
@@ -106,7 +114,15 @@ const ReportsAdmin = () => {
           }`
         );
         let result = await response.json();
-        setReports(result.qrcodes);
+        let response2 = await getHistory(
+          `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}${
+            query ? `&username=${query}` : ""
+          }`
+        );
+        let result2 = await response2.json();
+
+        setReports(result);
+        setHistories(result2.qrcodes);
         setPageStatus(PageStatus.Fetched);
       } catch (err) {
         console.log(err);
@@ -117,7 +133,7 @@ const ReportsAdmin = () => {
         toast: "false",
         position: "bottom-end",
         icon: "error",
-        title: `ابتدا و انتهای محدوده باید مشخص باشد`,
+        title: `ابتدا و انتهای محدوده و کدپرسنلی باید مشخص باشد`,
         showConfirmButton: false,
         timer: 3000,
       });
@@ -199,29 +215,34 @@ const ReportsAdmin = () => {
         </div>
       </form>
       <div className="text-sm flex p-3 md:gap-5 gap-3 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
-        <p>
-          <span>ساعات حضور : </span>
-          <span>100 ساعت</span>
-        </p>
-        <hr />
-        <p>
-          <span>دقایق تاخیر : </span>
-          <span>50 دقیقه</span>
-        </p>
+        {pageStatus === PageStatus.Loading ? (
+          <p>درحال بارگذاری</p>
+        ) : reports && histories.length > 0 ? (
+          <>
+            <p>
+              <span>ساعات حضور : </span>
+              <span>{totalHours}</span>
+            </p>
 
-        <hr />
+            <hr />
 
-        <p>
-          <span>مرخصی های ساعتی : </span>
-          <span>2 ساعت</span>
-        </p>
-        <hr />
+            <p>
+              <span>مرخصی های ساعتی : </span>
+              <span>{reports.amountOfHourlyVacations}</span>
+            </p>
+            <hr />
 
-        <p>
-          <span> مرخصی های روزانه : </span>
-          <span>3 روز</span>
-        </p>
-        <hr />
+            <p>
+              <span> مرخصی های روزانه : </span>
+              <span>{reports.amountOfDailyVacations}</span>
+            </p>
+            <hr />
+          </>
+        ) : (
+          <p>
+            فیلتری انتخاب کنید<br></br>داده ای یافت نشد
+          </p>
+        )}
       </div>
     </>
   );
