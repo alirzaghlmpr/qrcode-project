@@ -13,10 +13,14 @@ import persian_en from "react-date-object/locales/persian_en";
 import { DateObject } from "react-multi-date-picker";
 import Swal from "sweetalert2";
 import removeZeros from "@/utils/removeZeros";
+import getUserHistory from "@/apis/UserHistory";
 
 const Reports = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [reports, setReports] = useState([]);
+  const [histories, setHistories] = useState([]);
+  const [totalHours, setTotalHours] = useState(0);
+
   const [values, setValues] = useState([new DateObject()]);
 
   useEffect(() => {
@@ -25,7 +29,12 @@ const Reports = () => {
 
       let response = await getUserReports(username);
       let result = await response.json();
-      console.log(result);
+
+      let response2 = await getUserHistory(username);
+      let result2 = await response2.json();
+
+      setReports(result);
+      setHistories(result2.qrcodes);
       setPageStatus(PageStatus.Fetched);
     };
 
@@ -36,6 +45,21 @@ const Reports = () => {
       console.log(err);
     }
   }, []);
+
+  useEffect(() => {
+    if (histories.length > 0) {
+      let sum = 0;
+      histories.map((object) => {
+        if (object?.exitDate) {
+          sum += Math.abs(
+            new Date(object.entranceDate) - new Date(object.exitDate)
+          );
+        }
+      });
+
+      setTotalHours(new Date(sum).toISOString().slice(11, 19));
+    }
+  }, [histories]);
 
   const handleReportFilter = async (e) => {
     e.preventDefault();
@@ -64,11 +88,20 @@ const Reports = () => {
     try {
       setPageStatus(PageStatus.Loading);
       let response = await getUserReports(
-        JSON.parse(localStorage.getItem("infos")).personalID,
+        JSON.parse(localStorage.getItem("infos")).username,
         `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
       );
+      let response2 = await getUserHistory(
+        JSON.parse(localStorage.getItem("infos")).username,
+        `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
+      );
+
       let result = await response.json();
-      setReports(result.qrcodes);
+      let result2 = await response2.json();
+
+      setReports(result);
+      setHistories(result2.qrcodes);
+
       setPageStatus(PageStatus.Fetched);
     } catch (err) {
       console.log(err);
@@ -94,11 +127,17 @@ const Reports = () => {
       try {
         setPageStatus(PageStatus.Loading);
         let response = await getUserReports(
-          JSON.parse(localStorage.getItem("infos")).personalID,
+          JSON.parse(localStorage.getItem("infos")).username,
+          `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
+        );
+        let response2 = await getUserHistory(
+          JSON.parse(localStorage.getItem("infos")).username,
           `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
         );
         let result = await response.json();
-        setReports(result.qrcodes);
+        let result2 = await response2.json();
+        setReports(result);
+        setHistories(result2.qrcodes);
         setPageStatus(PageStatus.Fetched);
       } catch (err) {
         console.log(err);
@@ -174,35 +213,33 @@ const Reports = () => {
           </Button>
         </div>
       </form>
-      <div className="flex p-3 gap-3 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
-        <p>
-          <span>ساعات حضور : </span>
-          <span>100 ساعت</span>
-        </p>
-        <hr />
-        <p>
-          <span>دقایق تاخیر : </span>
-          <span>50 دقیقه</span>
-        </p>
-        <hr />
+      <div className="flex p-3 md:gap-5 gap-3 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
+        <div>
+          {pageStatus === PageStatus.Loading ? (
+            <p>درحال بارگذاری</p>
+          ) : (
+            <>
+              <p>
+                <span>ساعات حضور : </span>
+                <span>{totalHours}</span>
+              </p>
 
-        <p>
-          <span>تعداد دفعات مرخصی ساعتی : </span>
-          <span>2 دفعه</span>
-        </p>
-        <hr />
+              <hr />
 
-        <p>
-          <span>مرخصی های ساعتی : </span>
-          <span>2 ساعت</span>
-        </p>
-        <hr />
+              <p>
+                <span>مرخصی های ساعتی : </span>
+                <span>{reports.amountOfHourlyVacations}</span>
+              </p>
+              <hr />
 
-        <p>
-          <span> مرخصی های روزانه : </span>
-          <span>3 روز</span>
-        </p>
-        <hr />
+              <p>
+                <span> مرخصی های روزانه : </span>
+                <span>{reports.amountOfDailyVacations}</span>
+              </p>
+              <hr />
+            </>
+          )}
+        </div>
       </div>
     </>
   );

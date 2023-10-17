@@ -44,7 +44,7 @@ const LeavageForm = () => {
     try {
       setPageStatus(PageStatus.Loading);
       let response = await getUserLeavages(
-        JSON.parse(localStorage.getItem("infos")).personalID
+        JSON.parse(localStorage.getItem("infos")).username
       );
       let result = await response.json();
       setLeavages(result.vacations.reverse());

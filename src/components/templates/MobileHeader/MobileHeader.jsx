@@ -14,9 +14,6 @@ const MobileHeader = () => {
 
   return (
     <div className="flex p-3 gap-10 items-center bg-indigo-950">
-      <div>
-        <Image width="50" src={Avatar} alt="user profile" />
-      </div>
       <p className="text-slate-50 text-xs">{`${data && data?.fname} ${
         data && data?.lname
       }`}</p>

@@ -65,7 +65,7 @@ const TableHistory = () => {
     try {
       setPageStatus(PageStatus.Loading);
       let response = await getUserHistory(
-        JSON.parse(localStorage.getItem("infos")).personalID,
+        JSON.parse(localStorage.getItem("infos")).username,
         `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
       );
       let result = await response.json();
@@ -95,7 +95,7 @@ const TableHistory = () => {
       try {
         setPageStatus(PageStatus.Loading);
         let response = await getUserHistory(
-          JSON.parse(localStorage.getItem("infos")).personalID,
+          JSON.parse(localStorage.getItem("infos")).username,
           `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
         );
         let result = await response.json();

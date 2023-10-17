@@ -59,7 +59,6 @@ const Table = ({ header, datas, isAdmin }) => {
                 )
                   .toISOString()
                   .slice(11, 19)}
-              {console.log("asdlkasjdkl")}
             </td>
           </tr>
         ))}

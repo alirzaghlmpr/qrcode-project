@@ -15,7 +15,6 @@ const AddUserForm = () => {
     let formsElements = e.target.elements;
     let fname = formsElements.namedItem(AddUserFormFields?.Name?.title)?.value;
     let lname = formsElements.namedItem(AddUserFormFields?.Lname?.title)?.value;
-    let role = formsElements.namedItem(AddUserFormFields?.Role?.title)?.value;
     let password = formsElements.namedItem(
       AddUserFormFields?.Password?.title
     )?.value;
@@ -25,7 +24,7 @@ const AddUserForm = () => {
       let response = await insertUser({
         fname: fname,
         lname: lname,
-        role: role,
+        role: "person",
         password: password,
       });
       e.target.reset();
@@ -68,18 +67,6 @@ const AddUserForm = () => {
           id={`_${AddUserFormFields?.Lname?.title}`}
           placeholder={AddUserFormFields?.Lname?.placeholder}
           className="border-2 border-indigo-950 focus:border-indigo-600 p-2 rounded-lg"
-        />
-        <TextField
-          name={AddUserFormFields?.Role?.title}
-          id={`_${AddUserFormFields?.Role?.title}`}
-          placeholder={AddUserFormFields?.Role?.placeholder}
-          className="border-2 border-indigo-950 focus:border-indigo-600 p-2 rounded-lg"
-        />
-        <label htmlFor="personelImg">عکس پرسنلی</label>
-        <input
-          name={AddUserFormFields?.Image?.title}
-          id={`_${AddUserFormFields?.Image?.title}`}
-          type="file"
         />
         <TextField
           name={AddUserFormFields?.Password?.title}
