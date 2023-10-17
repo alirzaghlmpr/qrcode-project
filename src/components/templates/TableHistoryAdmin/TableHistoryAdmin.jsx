@@ -15,8 +15,10 @@ import Swal from "sweetalert2";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { DateObject } from "react-multi-date-picker";
+import persian_en from "react-date-object/locales/persian_en";
 
+import { DateObject } from "react-multi-date-picker";
+import removeZeros from "@/utils/removeZeros";
 const TableHistoryAdmin = () => {
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [histories, setHistories] = useState([]);
@@ -69,7 +71,9 @@ const TableHistoryAdmin = () => {
     try {
       setPageStatus(PageStatus.Loading);
       let response = await getHistory(
-        `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
+        `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}${
+          query ? `&username=${query}` : ""
+        }`
       );
       let result = await response.json();
       setHistories(result.qrcodes);
@@ -77,6 +81,49 @@ const TableHistoryAdmin = () => {
     } catch (err) {
       console.log(err);
       setPageStatus(PageStatus.Error);
+    }
+  };
+
+  const handleHistoryFilterRange = async (e) => {
+    e.preventDefault();
+
+    if (values[0] && values[1]) {
+      let persianStartDate = values[0]
+        .convert(persian, persian_en)
+        .format()
+        .toString();
+      persianStartDate = removeZeros(persianStartDate);
+      let persianEndDate = values[1]
+        .convert(persian, persian_en)
+        .format()
+        .toString();
+      persianEndDate = removeZeros(persianEndDate);
+      let query = e.target.elements.namedItem("searchQuery")?.value;
+      query = query === "" ? null : query;
+
+      try {
+        setPageStatus(PageStatus.Loading);
+        let response = await getHistory(
+          `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}${
+            query ? `&username=${query}` : ""
+          }`
+        );
+        let result = await response.json();
+        setHistories(result.qrcodes);
+        setPageStatus(PageStatus.Fetched);
+      } catch (err) {
+        console.log(err);
+        setPageStatus(PageStatus.Error);
+      }
+    } else {
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "error",
+        title: `ابتدا و انتهای محدوده باید مشخص باشد`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
     }
   };
 
@@ -136,7 +183,7 @@ const TableHistoryAdmin = () => {
           </div>
         </form>
         <form
-          action=""
+          onSubmit={handleHistoryFilterRange}
           className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
           <div style={{ direction: "rtl" }}>
             <p>انتخاب محدوده:</p>
@@ -146,6 +193,13 @@ const TableHistoryAdmin = () => {
               value={values}
               onChange={setValues}
               range
+            />
+          </div>
+          <div>
+            <TextField
+              name="searchQuery"
+              placeholder="جست و جوی کد پرسنلی"
+              className="text-xs px-3 py-3 rounded-lg border-transparent border-2 focus:border-indigo-900 focus:border-2 text-indigo-900"
             />
           </div>
           <div className="w-[100%] md:w-auto">

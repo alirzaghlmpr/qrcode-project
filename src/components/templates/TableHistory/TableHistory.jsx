@@ -14,6 +14,8 @@ import Swal from "sweetalert2";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import persian_en from "react-date-object/locales/persian_en";
+import removeZeros from "@/utils/removeZeros";
 import { DateObject } from "react-multi-date-picker";
 
 const TableHistory = () => {
@@ -76,6 +78,47 @@ const TableHistory = () => {
       setPageStatus(PageStatus.Error);
     }
   };
+
+  const handleHistoryFilterRange = async (e) => {
+    e.preventDefault();
+
+    if (values[0] && values[1]) {
+      let persianStartDate = values[0]
+        .convert(persian, persian_en)
+        .format()
+        .toString();
+      persianStartDate = removeZeros(persianStartDate);
+      let persianEndDate = values[1]
+        .convert(persian, persian_en)
+        .format()
+        .toString();
+      persianEndDate = removeZeros(persianEndDate);
+
+      try {
+        setPageStatus(PageStatus.Loading);
+        let response = await getUserHistory(
+          JSON.parse(localStorage.getItem("infos")).personalID,
+          `persianStartDate=${persianStartDate}&persianEndDate=${persianEndDate}`
+        );
+        let result = await response.json();
+        setHistories(result.qrcodes);
+        setPageStatus(PageStatus.Fetched);
+      } catch (err) {
+        console.log(err);
+        setPageStatus(PageStatus.Error);
+      }
+    } else {
+      Swal.fire({
+        toast: "false",
+        position: "bottom-end",
+        icon: "error",
+        title: `ابتدا و انتهای محدوده باید مشخص باشد`,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+  };
+
   return (
     <>
       <div
@@ -124,7 +167,7 @@ const TableHistory = () => {
           </div>
         </form>
         <form
-          action=""
+          onSubmit={handleHistoryFilterRange}
           className="flex flex-wrap justify-center md:justify-start gap-5 items-center">
           <div style={{ direction: "rtl" }}>
             <p>انتخاب محدوده:</p>
