@@ -198,7 +198,7 @@ const ReportsAdmin = () => {
           </Button>
         </div>
       </form>
-      <div className="text-sm flex p-3 md:gap-3 gap-2 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
+      <div className="text-sm flex p-3 md:gap-4 gap-3 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
         <p>
           <span>ساعات حضور : </span>
           <span>100 ساعت</span>
@@ -227,11 +227,6 @@ const ReportsAdmin = () => {
           <span>3 روز</span>
         </p>
         <hr />
-
-        <p>
-          <span>اضافه کاری : </span>
-          <span>100 ساعت</span>
-        </p>
       </div>
     </>
   );

@@ -2,10 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Monthes from "@/constants/Monthes";
 import lastNyears from "@/utils/lastNyears";
-import daysOfMonth from "@/utils/daysOfMonth";
 import TableHistoryHeadersUser from "@/constants/TableHistoryHeadersUser";
 import Table from "@/components/shared/Table";
-import UserHistoryTableFakeData from "@/mocks/UserHistoryTableFakeData";
 import Button from "@/components/shared/Button";
 import Select from "@/components/shared/Select";
 import getUserHistory from "@/apis/UserHistory";
@@ -24,17 +22,17 @@ const TableHistory = () => {
   const [values, setValues] = useState([new DateObject()]);
 
   useEffect(() => {
-    const fetchData = async (personalID) => {
+    const fetchData = async (username) => {
       setPageStatus(PageStatus.Loading);
 
-      let response = await getUserHistory(personalID);
+      let response = await getUserHistory(username);
       let result = await response.json();
       setHistories(result.qrcodes);
       setPageStatus(PageStatus.Fetched);
     };
 
     try {
-      fetchData(JSON.parse(localStorage.getItem("infos")).personalID);
+      fetchData(JSON.parse(localStorage.getItem("infos")).username);
     } catch (err) {
       setPageStatus(PageStatus.Error);
       console.log(err);

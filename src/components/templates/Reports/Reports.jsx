@@ -20,17 +20,17 @@ const Reports = () => {
   const [values, setValues] = useState([new DateObject()]);
 
   useEffect(() => {
-    const fetchData = async (personalID) => {
+    const fetchData = async (username) => {
       setPageStatus(PageStatus.Loading);
 
-      let response = await getUserReports(personalID);
+      let response = await getUserReports(username);
       let result = await response.json();
       console.log(result);
       setPageStatus(PageStatus.Fetched);
     };
 
     try {
-      fetchData(JSON.parse(localStorage.getItem("infos")).personalID);
+      fetchData(JSON.parse(localStorage.getItem("infos")).username);
     } catch (err) {
       setPageStatus(PageStatus.Error);
       console.log(err);
@@ -203,11 +203,6 @@ const Reports = () => {
           <span>3 روز</span>
         </p>
         <hr />
-
-        <p>
-          <span>اضافه کاری : </span>
-          <span>100 ساعت</span>
-        </p>
       </div>
     </>
   );

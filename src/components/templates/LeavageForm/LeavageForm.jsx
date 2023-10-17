@@ -23,17 +23,17 @@ const LeavageForm = () => {
   );
 
   useEffect(() => {
-    const fetchData = async (personalID) => {
+    const fetchData = async (username) => {
       setPageStatus(PageStatus.Loading);
 
-      let response = await getUserLeavages(personalID);
+      let response = await getUserLeavages(username);
       let result = await response.json();
       setLeavages(result.vacations.reverse());
       setPageStatus(PageStatus.Fetched);
     };
 
     try {
-      fetchData(JSON.parse(localStorage.getItem("infos")).personalID);
+      fetchData(JSON.parse(localStorage.getItem("infos")).username);
     } catch (err) {
       setPageStatus(PageStatus.Error);
       console.log(err);
