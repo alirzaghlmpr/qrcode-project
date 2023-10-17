@@ -2,8 +2,9 @@
 
 import React, { useEffect } from "react";
 import { redirect } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 const AuthProvider = ({ children }) => {
+  const router = useRouter();
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userInfos = JSON.parse(localStorage.getItem("infos"));
@@ -12,7 +13,7 @@ const AuthProvider = ({ children }) => {
           localStorage.setItem("infos", null);
 
       if (userInfos === null) {
-        redirect("/");
+        router.push("/");
       }
     }
   }, []);

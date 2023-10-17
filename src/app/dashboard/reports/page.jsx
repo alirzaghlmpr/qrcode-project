@@ -13,11 +13,11 @@ const Report = () => {
   const { width } = useWindowSize();
   return width < 768 ? (
     <AuthProvider>
-      <MobileDashboard navItems={UserNavbarItems}>
+      <yDashboard navItems={UserNavbarItems}>
         <DashboardContent>
           <Reports />
         </DashboardContent>
-      </MobileDashboard>
+      </yDashboard>
     </AuthProvider>
   ) : (
     <AuthProvider>

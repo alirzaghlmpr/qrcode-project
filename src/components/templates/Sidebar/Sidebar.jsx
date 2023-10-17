@@ -4,9 +4,11 @@ import Avatar from "@/assets/userAvatar.webp";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 const Sidebar = ({ navItems }) => {
   let path = usePathname();
+  const router = useRouter();
   const { fname, lname, username } = JSON.parse(localStorage.getItem("infos"));
   return (
     <div className="flex flex-col bg-indigo-950 w-64 h-screen px-4 py-8 overflow-y-auto  border-r rtl:border-r-0 rtl:border-l">
@@ -14,6 +16,15 @@ const Sidebar = ({ navItems }) => {
         <h4 className="mx-2 mt-2 font-medium text-slate-200">{`${fname} ${lname}`}</h4>
         <p className="mx-2 mt-1 text-sm font-medium text-slate-300 d">
           {username}
+        </p>
+        <p
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            localStorage.setItem("infos", null);
+            router.push("/");
+          }}
+          className="mx-2 mt-1 text-sm font-medium text-slate-300">
+          خروج
         </p>
       </div>
 

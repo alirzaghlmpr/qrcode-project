@@ -18,6 +18,15 @@ const MobileHeader = () => {
         data && data?.lname
       }`}</p>
       <p className="text-slate-50 text-xs">{data && data?.username}</p>
+      <p
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          localStorage.setItem("infos", null);
+          router.push("/");
+        }}
+        className="mx-2 mt-1 text-sm font-medium text-slate-300">
+        خروج
+      </p>
     </div>
   );
 };
