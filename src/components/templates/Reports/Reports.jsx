@@ -214,32 +214,30 @@ const Reports = () => {
         </div>
       </form>
       <div className="flex p-3 md:gap-5 gap-3 flex-col w-[100%] h-[100%] bg-white border-1 rounded-lg">
-        <div>
-          {pageStatus === PageStatus.Loading ? (
-            <p>درحال بارگذاری</p>
-          ) : (
-            <>
-              <p>
-                <span>ساعات حضور : </span>
-                <span>{totalHours}</span>
-              </p>
+        {pageStatus === PageStatus.Loading ? (
+          <p>درحال بارگذاری</p>
+        ) : (
+          <>
+            <p>
+              <span>ساعات حضور : </span>
+              <span>{totalHours}</span>
+            </p>
 
-              <hr />
+            <hr />
 
-              <p>
-                <span>مرخصی های ساعتی : </span>
-                <span>{reports.amountOfHourlyVacations}</span>
-              </p>
-              <hr />
+            <p>
+              <span>مرخصی های ساعتی : </span>
+              <span>{reports.amountOfHourlyVacations}</span>
+            </p>
+            <hr />
 
-              <p>
-                <span> مرخصی های روزانه : </span>
-                <span>{reports.amountOfDailyVacations}</span>
-              </p>
-              <hr />
-            </>
-          )}
-        </div>
+            <p>
+              <span> مرخصی های روزانه : </span>
+              <span>{reports.amountOfDailyVacations}</span>
+            </p>
+            <hr />
+          </>
+        )}
       </div>
     </>
   );
