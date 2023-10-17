@@ -1,7 +1,7 @@
-const updateLeavage = async (personID, data) => {
+const updateLeavage = async (vacationID, data) => {
   try {
     let response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/vacation/${personID}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/vacation?vacationId=${vacationID}`,
       {
         headers: {
           "Content-Type": "application/json",

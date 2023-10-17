@@ -48,12 +48,11 @@ const LeavageFormAdmin = () => {
     }
   };
 
-  const updateUserLeavage = async (id, person, status) => {
+  const updateUserLeavage = async (id, status) => {
     try {
       setPageStatus(PageStatus.Loading);
 
-      let response = await updateLeavage(person._id, {
-        id: id,
+      let response = await updateLeavage(id, {
         status: status,
       });
       let result = await response.json();
@@ -120,11 +119,7 @@ const LeavageFormAdmin = () => {
                         <p className="flex gap-4 mt-2">
                           <Button
                             onClickCallback={() => {
-                              updateUserLeavage(
-                                _id,
-                                person,
-                                LeavageStatus.Accepted
-                              );
+                              updateUserLeavage(_id, LeavageStatus.Accepted);
                             }}
                             className="flex items-center gap-2 text-sm text-slate-50 bg-green-700 rounded-lg px-3 py-1">
                             <span>
@@ -135,11 +130,7 @@ const LeavageFormAdmin = () => {
 
                           <Button
                             onClickCallback={() =>
-                              updateUserLeavage(
-                                _id,
-                                person,
-                                LeavageStatus.Rejected
-                              )
+                              updateUserLeavage(_id, LeavageStatus.Rejected)
                             }
                             className="flex items-center gap-2 text-sm text-slate-50 bg-red-700 rounded-lg px-3 py-1">
                             <span>
