@@ -24,9 +24,17 @@ const ReportsAdmin = () => {
   const [reports, setReports] = useState(null);
   const [histories, setHistories] = useState([]);
   const [totalHours, setTotalHours] = useState(0);
+  const [totalLatency, setTotalLantency] = useState(0);
 
   useEffect(() => {
     if (histories.length > 0) {
+      let entranceDates = new Date(object.entranceDate);
+
+      latencies +=
+        entranceDates.getHours() * 3600 +
+        entranceDates.getMinutes() * 60 +
+        entranceDates.getSeconds();
+
       let sum = 0;
       histories.map((object) => {
         if (object?.exitDate) {
@@ -35,6 +43,23 @@ const ReportsAdmin = () => {
           );
         }
       });
+
+      // vorode saat 8 , 8*3600
+      let diff = latencies - 8 * 3600; //diff + => takhir darim , diff manfi => takhir nadarim
+      console.log(diff);
+      if (diff > 0) {
+        setTotalLantency(
+          [
+            parseInt(diff / 60 / 60),
+            parseInt((diff / 60) % 60),
+            parseInt(diff % 60),
+          ]
+            .join(":")
+            .replace(/\b(\d)\b/g, "0$1")
+        );
+      } else {
+        setTotalLantency(0);
+      }
 
       setTotalHours(new Date(sum).toISOString().slice(11, 19));
     }
@@ -225,7 +250,11 @@ const ReportsAdmin = () => {
             </p>
 
             <hr />
-
+            <p>
+              <span>ساعات تاخیر: </span>
+              <span>{totalLatency}</span>
+            </p>
+            <hr />
             <p>
               <span>مرخصی های ساعتی : </span>
               <span>{reports.amountOfHourlyVacations}</span>
