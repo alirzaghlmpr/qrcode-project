@@ -48,6 +48,8 @@ const Reports = () => {
   }, []);
 
   useEffect(() => {
+    setTotalHours(0);
+    setTotalLantency(0);
     if (histories.length > 0) {
       let sum = 0;
       let latencies = 0;

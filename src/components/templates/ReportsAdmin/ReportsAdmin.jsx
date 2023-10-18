@@ -27,6 +27,9 @@ const ReportsAdmin = () => {
   const [totalLatency, setTotalLantency] = useState(0);
 
   useEffect(() => {
+    setTotalHours(0);
+    setTotalLantency(0);
+
     if (histories.length > 0) {
       let entranceDates = new Date(object.entranceDate);
 

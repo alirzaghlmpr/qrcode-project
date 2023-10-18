@@ -22,6 +22,19 @@ const QRcodeGenerator = () => {
         isEntrance: true,
       });
       let data = await response.json();
+      if (data.message == "Entrance qrcode for today is already created...") {
+        Swal.fire({
+          toast: "false",
+          position: "bottom-end",
+          icon: "error",
+          title: `شما امروز کد ورود ساخته اید`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setPageStatus(PageStatus.Error);
+        return;
+      }
+
       Swal.fire({
         toast: "false",
         position: "bottom-end",
@@ -30,7 +43,7 @@ const QRcodeGenerator = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-      console.log(data);
+
       setPageStatus(PageStatus.Fetched);
       setQrCodeUrl(data.qrCodeUrl);
     } catch (error) {
@@ -54,6 +67,19 @@ const QRcodeGenerator = () => {
         isEntrance: false,
       });
       let data = await response.json();
+      if (data.message == "Exit qrcode for today is already created...") {
+        Swal.fire({
+          toast: "false",
+          position: "bottom-end",
+          icon: "error",
+          title: `شما امروز کد خروج ساخته اید`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setPageStatus(PageStatus.Error);
+        return;
+      }
+
       Swal.fire({
         toast: "false",
         position: "bottom-end",
@@ -62,7 +88,7 @@ const QRcodeGenerator = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-      console.log(data);
+
       setPageStatus(PageStatus.Fetched);
       setQrCodeUrl(data.qrCodeUrl);
     } catch (error) {
